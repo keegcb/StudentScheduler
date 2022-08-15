@@ -3,37 +3,46 @@ package com.example.studentscheduler.Entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity(tableName = "Assessment")
 public class Assessment {
     @PrimaryKey(autoGenerate = true)
+    private int assessmentId;
+
     private String title;
     private int courseId;
     private int type;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private Date startDate;
+    private Date endDate;
     private boolean alert;
 
 
     @Override
     public String toString() {
         return "Assessment{" +
-                "title='" + title + '\'' +
+                "assessmentId='" + assessmentId + '\'' +
+                ", title='" + title + '\'' +
                 ", courseId=" + courseId +
                 ", type=" + type +
+                ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", alert=" + alert +
                 '}';
     }
 
-    public Assessment(String title, int courseId, int type, LocalDate startDate, LocalDate endDate, boolean alert) {
+    public Assessment(int assessmentId, int assessmentId1, String title, int courseId, int type, Date startDate, Date endDate, boolean alert) {
+        this.assessmentId = assessmentId1;
         this.title = title;
         this.courseId = courseId;
         this.type = type;
         this.startDate = startDate;
         this.endDate = endDate;
         this.alert = alert;
+    }
+
+    public Assessment(){
+
     }
 
     public String getTitle() {
@@ -48,11 +57,11 @@ public class Assessment {
         return type;
     }
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
@@ -68,13 +77,17 @@ public class Assessment {
         this.type = type;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
+
+    public int getAssessmentId() {
+        return assessmentId;
+    }
 
 }

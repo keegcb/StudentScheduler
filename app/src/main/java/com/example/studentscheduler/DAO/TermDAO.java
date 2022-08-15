@@ -7,21 +7,21 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.studentscheduler.Entity.Assessment;
+import com.example.studentscheduler.Entity.Term;
 
 import java.util.List;
 
 @Dao
-public interface AssessmentDAO {
+public interface TermDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertAss(Assessment assessment);
+    void insertTerm(Term term);
 
     @Update
-    void updateAss(Assessment assessment);
+    void updateTerm(Term term);
 
     @Delete
-    void deleteAss(Assessment assessment);
+    void deleteTerm(Term term);
 
-    @Query("SELECT * FROM Assessment ORDER BY assessmentId ASC")
-    List<Assessment> getAllAssessments();
+    @Query("SELECT * FROM Terms ORDER BY termId ASC")
+    List<Term> getAllTerms();
 }
