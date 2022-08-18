@@ -31,7 +31,7 @@ public class Repository {
         mTermDAO=db.termDAO();
     }
 
-    public void insert(Assessment assessment){
+    public void insertAss(Assessment assessment){
         databaseExecutor.execute(()->{
             mAssessmentDAO.insertAss(assessment);
         });
@@ -106,6 +106,30 @@ public class Repository {
     public void insert(Term term){
         databaseExecutor.execute(()->{
             mTermDAO.insertTerm(term);
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void update(Term term){
+        databaseExecutor.execute(()->{
+            mTermDAO.updateTerm(term);
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(Term term){
+        databaseExecutor.execute(()->{
+            mTermDAO.deleteTerm(term);
         });
         try{
             Thread.sleep(1000);
