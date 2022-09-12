@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.studentscheduler.R;
 
-public class Assessments extends AppCompatActivity {
+public class TermList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assessments);
+        setContentView(R.layout.activity_term_list);
     }
 }
