@@ -14,36 +14,40 @@
         android:theme="@style/Theme.StudentScheduler"
         tools:targetApi="31">
         <activity
-            android:name=".TermUpdate"
+            android:name=".UI.NavMenu"
             android:exported="false" />
         <activity
-            android:name=".AssessmentUpdate"
-            android:exported="false"
-            android:label="@string/title_activity_assessment_update"
-            android:theme="@style/Theme.StudentScheduler.NoActionBar" />
-        <activity
-            android:name=".Course"
+            android:name=".UI.CourseList"
             android:exported="false" />
         <activity
-            android:name=".AssessmentDetails"
+            android:name=".UI.AssessmentList"
             android:exported="false" />
         <activity
-            android:name=".TermDetails"
+            android:name=".UI.TermList"
             android:exported="false" />
         <activity
-            android:name=".CourseDetails"
+            android:name=".UI.TermUpdate"
+            android:parentActivityName=".UI.TermList"
             android:exported="false" />
         <activity
-            android:name=".Assessments"
+            android:name=".UI.CourseUpdate"
+            android:parentActivityName=".UI.CourseList"
             android:exported="false" />
         <activity
-            android:name=".Courses"
+            android:name=".UI.AssessmentUpdate"
+            android:parentActivityName=".UI.AssessmentList"
             android:exported="false" />
         <activity
-            android:name=".Terms"
+            android:name=".UI.TermDetails"
+            android:parentActivityName=".UI.TermList"
             android:exported="false" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".UI.AssessmentDetails"
+            android:parentActivityName=".UI.AssessmentList"
+            android:exported="false" />
+        <activity
+            android:name=".UI.CourseDetails"
+            android:parentActivityName=".UI.CourseList"
             android:exported="false" />
         <activity
             android:name=".UI.MainActivity"
