@@ -2,7 +2,9 @@ package com.example.studentscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.studentscheduler.R;
 
@@ -14,6 +16,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void BeginTermActivity(View view){
+        Intent intent = new Intent(MainActivity.this, TermList.class);
+        startActivity(intent);
 
+    }
+
+    public void BeginCourseActivity(View view){
+        Intent intent = new Intent(MainActivity.this, CourseList.class);
+        startActivity(intent);
+
+    }
+
+    public void BeginAssessmentActivity(View view){
+        Intent intent = new Intent(MainActivity.this, AssessmentList.class);
+        startActivity(intent);
+
+    }
 
 }
