@@ -139,7 +139,33 @@ public class Repository {
         }
     }
 
-    public List<Assessment> getmAllAssessments(){
+    public List<Assessment> getAllAssessments(){
+        databaseExecutor.execute(()->{
+
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Course> getAllCourses(){
+        databaseExecutor.execute(()->{
+
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Term> getAllTerms(){
         databaseExecutor.execute(()->{
 
         });
