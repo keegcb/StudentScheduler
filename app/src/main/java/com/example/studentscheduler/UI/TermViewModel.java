@@ -18,8 +18,8 @@ import com.example.studentscheduler.R;
 import java.util.List;
 
 public class TermViewModel extends AndroidViewModel {
-    private Repository repo;
-    private LiveData<List<Term>> allTerms;
+    private final Repository repo;
+    private final LiveData<List<Term>> allTerms;
 
     public TermViewModel(@NonNull Application application){
         super(application);
