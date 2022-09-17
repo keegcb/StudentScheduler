@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
-
     private List<Term> terms = new ArrayList<>();
     private View.OnClickListener listener;
 
@@ -53,13 +52,6 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
         public TermViewHolder(@NonNull View view){
             super(view);
             termTitle = view.findViewById(R.id.txt_term_name);
-
-            view.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                if ((listener != null) && (position != RecyclerView.NO_POSITION)){
-                    listener.onClick(terms.get(position));
-                }
-            });
         }
     }
 

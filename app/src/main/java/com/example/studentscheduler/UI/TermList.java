@@ -36,6 +36,10 @@ public class TermList extends AppCompatActivity {
         termViewModel = new ViewModelProvider(this).get(TermViewModel.class);
         termViewModel.getAllTerms().observe(this, adapter::setTermList);
 
+        adapter.setOnItemClickListener(termViewModel -> {
+            Intent intent = new Intent(TermList.this, TermDetails.class);
+            startActivity(intent);
+        });
 
 
     }
