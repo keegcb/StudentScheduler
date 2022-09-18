@@ -85,9 +85,13 @@ public class Assessment {
         this.endDate = endDate;
     }
 
-
     public int getAssessmentId() {
         return assessmentId;
     }
 
+    public void setAssessmentId(int id){this.assessmentId = id;}
+
+    public boolean getAlert(){return alert;}
+
+    public void setAlert(boolean alert){this.alert = alert;}
 }

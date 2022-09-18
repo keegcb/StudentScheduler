@@ -21,8 +21,8 @@ public class Repository {
     private List<Course> mAllCourses;
     private List<Term> mAllTerms;
 
-    private static final int NUMMBER_OF_THREADS=4;
-    static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMMBER_OF_THREADS);
+    private static final int NUMBER_OF_THREADS =4;
+    static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public Repository(Application application){
         DatabaseBuilder db=DatabaseBuilder.getDatabase(application);

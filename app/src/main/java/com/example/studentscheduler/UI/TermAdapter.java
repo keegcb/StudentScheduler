@@ -38,7 +38,8 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
 
     public void setTermList(List<Term> terms){
         this.terms = terms;
-        notifyDataSetChanged();
+        //Add specific change event to notify an update in data instead of
+        //notifyDataSetChanged();
     }
 
     public Term getTerm(int position){
