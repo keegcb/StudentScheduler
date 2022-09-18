@@ -25,8 +25,7 @@ public class Term {
                 '}';
     }
 
-    public Term(String termTitle) {
-        this.termId = termId;
+    public Term(String termTitle, Date startDate, Date endDate) {
         this.termTitle = termTitle;
         this.startDate = startDate;
         this.endDate = endDate;

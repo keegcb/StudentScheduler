@@ -44,7 +44,7 @@ public class TermList extends AppCompatActivity {
 
 
     }
-
+/*
     protected void onActivityResult(int add, int complete, @NonNull Intent info){
         super.onActivityResult(add, complete, info);
         if((add == ADD_TERM) && (complete == RESULT_OK)){
@@ -59,7 +59,7 @@ public class TermList extends AppCompatActivity {
             Toast.makeText(this, "Term failed to add", Toast.LENGTH_LONG).show();
         }
     }
-
+ */
 
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){

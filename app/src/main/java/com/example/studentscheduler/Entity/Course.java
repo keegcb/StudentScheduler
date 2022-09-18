@@ -35,7 +35,6 @@ public class Course {
     }
 
     public Course(int courseId, String courseTitle, Date startDate, Date endDate, int status, String instructorName, String instructorPhone, String instructorEmail, int termId) {
-        this.courseId = courseId;
         this.courseTitle = courseTitle;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -43,7 +42,6 @@ public class Course {
         this.instructorName = instructorName;
         this.instructorPhone = instructorPhone;
         this.instructorEmail = instructorEmail;
-        this.termId = termId;
     }
 
     public Course(){}

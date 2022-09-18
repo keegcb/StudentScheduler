@@ -2,6 +2,8 @@ package com.example.studentscheduler.Database;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.studentscheduler.DAO.AssessmentDAO;
 import com.example.studentscheduler.DAO.CourseDAO;
 import com.example.studentscheduler.DAO.TermDAO;
@@ -17,9 +19,9 @@ public class Repository {
     private final AssessmentDAO mAssessmentDAO;
     private final CourseDAO mCourseDAO;
     private final TermDAO mTermDAO;
-    private List<Assessment> mAllAssessments;
-    private List<Course> mAllCourses;
-    private List<Term> mAllTerms;
+    private LiveData<List<Assessment>> mAllAssessments;
+    private LiveData<List<Course>> mAllCourses;
+    private LiveData<List<Term>> mAllTerms;
 
     private static final int NUMBER_OF_THREADS =4;
     static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
