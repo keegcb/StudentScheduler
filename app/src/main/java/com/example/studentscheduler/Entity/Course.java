@@ -34,7 +34,7 @@ public class Course {
                 '}';
     }
 
-    public Course(int courseId, String courseTitle, Date startDate, Date endDate, int status, String instructorName, String instructorPhone, String instructorEmail, int termId) {
+    public Course(String courseTitle, Date startDate, Date endDate, int status, String instructorName, String instructorPhone, String instructorEmail) {
         this.courseTitle = courseTitle;
         this.startDate = startDate;
         this.endDate = endDate;

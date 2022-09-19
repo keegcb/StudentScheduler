@@ -29,13 +29,13 @@ public class TermViewModel extends AndroidViewModel {
 
 
     public void insert(Term term){
-        repo.insert(term);
+        repo.insertTerm(term);
     }
     public void update(Term term){
-        repo.update(term);
+        repo.updateTerm(term);
     }
     public void delete(Term term){
-        repo.delete(term);
+        repo.deleteTerm(term);
     }
     public LiveData<List<Term>> getAllTerms(){
         return allTerms;

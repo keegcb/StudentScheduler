@@ -31,10 +31,8 @@ public class Assessment {
                 '}';
     }
 
-    public Assessment(int assessmentId, int assessmentId1, String title, int courseId, int type, Date startDate, Date endDate, boolean alert) {
-        this.assessmentId = assessmentId1;
+    public Assessment(String title, int type, Date startDate, Date endDate, boolean alert) {
         this.title = title;
-        this.courseId = courseId;
         this.type = type;
         this.startDate = startDate;
         this.endDate = endDate;

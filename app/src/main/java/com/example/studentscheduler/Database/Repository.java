@@ -33,9 +33,9 @@ public class Repository {
         mTermDAO=db.termDAO();
     }
 
-    public void insertAss(Assessment assessment){
+    public void insertAssessment(Assessment assessment){
         databaseExecutor.execute(()->{
-            mAssessmentDAO.insertAss(assessment);
+            mAssessmentDAO.insertAssessment(assessment);
         });
         try{
             Thread.sleep(1000);
@@ -45,9 +45,9 @@ public class Repository {
         }
     }
 
-    public void update(Assessment assessment){
+    public void updateAssessment(Assessment assessment){
         databaseExecutor.execute(()->{
-            mAssessmentDAO.updateAss(assessment);
+            mAssessmentDAO.updateAssessment(assessment);
         });
         try{
             Thread.sleep(1000);
@@ -57,9 +57,9 @@ public class Repository {
         }
     }
 
-    public void delete(Assessment assessment){
+    public void deleteAssessment(Assessment assessment){
         databaseExecutor.execute(()->{
-            mAssessmentDAO.deleteAss(assessment);
+            mAssessmentDAO.deleteAssessment(assessment);
         });
         try{
             Thread.sleep(1000);
@@ -69,7 +69,7 @@ public class Repository {
         }
     }
 
-    public void insert(Course course){
+    public void insertCourse(Course course){
         databaseExecutor.execute(()->{
             mCourseDAO.insertCourse(course);
         });
@@ -81,7 +81,7 @@ public class Repository {
         }
     }
 
-    public void update(Course course){
+    public void updateCourse(Course course){
         databaseExecutor.execute(()->{
             mCourseDAO.updateCourse(course);
         });
@@ -93,7 +93,7 @@ public class Repository {
         }
     }
 
-    public void delete(Course course){
+    public void deleteCourse(Course course){
         databaseExecutor.execute(()->{
             mCourseDAO.deleteCourse(course);
         });
@@ -105,7 +105,7 @@ public class Repository {
         }
     }
 
-    public void insert(Term term){
+    public void insertTerm(Term term){
         databaseExecutor.execute(()->{
             mTermDAO.insertTerm(term);
         });
@@ -117,7 +117,7 @@ public class Repository {
         }
     }
 
-    public void update(Term term){
+    public void updateTerm(Term term){
         databaseExecutor.execute(()->{
             mTermDAO.updateTerm(term);
         });
@@ -129,7 +129,7 @@ public class Repository {
         }
     }
 
-    public void delete(Term term){
+    public void deleteTerm(Term term){
         databaseExecutor.execute(()->{
             mTermDAO.deleteTerm(term);
         });

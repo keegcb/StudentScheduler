@@ -14,13 +14,13 @@ import java.util.List;
 @Dao
 public interface AssessmentDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertAss(Assessment assessment);
+    void insertAssessment(Assessment assessment);
 
     @Update
-    void updateAss(Assessment assessment);
+    void updateAssessment(Assessment assessment);
 
     @Delete
-    void deleteAss(Assessment assessment);
+    void deleteAssessment(Assessment assessment);
 
     @Query("SELECT * FROM Assessment ORDER BY assessmentId ASC")
     List<Assessment> getAllAssessments();
