@@ -32,14 +32,14 @@ public abstract class DatabaseBuilder extends RoomDatabase {
 
     public abstract TermDAO termDAO();
 
-    private static DatabaseBuilder INSTANCE;
+    private static volatile DatabaseBuilder INSTANCE;
 
     public static synchronized DatabaseBuilder getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (DatabaseBuilder.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(), DatabaseBuilder.class, "studentSchedulerDatabase.db")
-                            .fallbackToDestructiveMigration()
+                            .fallbackToDestructiveMigration().allowMainThreadQueries()
                             .build();
                 }
             }

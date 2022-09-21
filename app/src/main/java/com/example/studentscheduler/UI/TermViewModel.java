@@ -24,7 +24,7 @@ public class TermViewModel extends AndroidViewModel {
     public TermViewModel(@NonNull Application application){
         super(application);
         repo = new Repository(application);
-        allTerms = (LiveData<List<Term>>) repo.getAllTerms();
+        allTerms = repo.getAllTerms();
     }
 
 

@@ -167,9 +167,9 @@ public class Repository {
         return null;
     }
 
-    public List<Term> getAllTerms(){
+    public LiveData<List<Term>> getAllTerms(){
         databaseExecutor.execute(()->{
-
+            mAllTerms = mTermDAO.getAllTerms();
         });
         try{
             Thread.sleep(1000);
@@ -177,6 +177,6 @@ public class Repository {
         catch (InterruptedException e){
             e.printStackTrace();
         }
-        return null;
+        return mAllTerms;
     }
 }

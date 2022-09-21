@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studentscheduler.Entity.Term;
@@ -20,15 +21,17 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
 
     @NonNull
     @Override
-    public TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+    public TermAdapter.TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_term_view, parent, false);
         return new TermViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TermViewHolder holder, int position) {
-        Term currentTerm = terms.get(position);
-        holder.termTitle.setText(currentTerm.getTermTitle());
+        if(terms != null){
+            Term currentTerm = terms.get(position);
+            holder.termTitle.setText(currentTerm.getTermTitle());
+        }
     }
 
     @Override
@@ -38,8 +41,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
 
     public void setTermList(List<Term> terms){
         this.terms = terms;
-        //Add specific change event to notify an update in data instead of
-        //notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public Term getTerm(int position){
@@ -49,25 +51,25 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
 
     class TermViewHolder extends RecyclerView.ViewHolder{
         private final TextView termTitle;
+        private final CardView termCard;
 
         public TermViewHolder(@NonNull View view){
             super(view);
             termTitle = view.findViewById(R.id.txt_term_name);
+            termCard = view.findViewById(R.id.card_term_item);
+
+            view.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if((listener != null) && (position != RecyclerView.NO_POSITION)){
+                    listener.onClick(termCard);
+                }
+            });
         }
     }
 
     public interface OnItemClickListener {
         void onItemClick(Term term);
     }
-
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.listener = (View.OnClickListener) listener;
-    }
-
-
-
-
-
 
 
 

@@ -35,8 +35,9 @@ public class TermList extends AppCompatActivity {
         mRecyclerView.setAdapter(adapter);
 
         termViewModel = new ViewModelProvider(this).get(TermViewModel.class);
-        termViewModel.getAllTerms().observe(this, adapter::setTermList);
+        termViewModel.getAllTerms().observe(this, allTerms -> adapter.setTermList(allTerms));
 
+//TODO: Add logic to click card view and pass term object to new TermDetails activity
         adapter.setOnItemClickListener(termViewModel -> {
             Intent intent = new Intent(TermList.this, TermDetails.class);
             startActivity(intent);

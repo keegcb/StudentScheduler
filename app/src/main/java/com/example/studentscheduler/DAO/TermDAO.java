@@ -1,5 +1,6 @@
 package com.example.studentscheduler.DAO;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -23,5 +24,5 @@ public interface TermDAO {
     void deleteTerm(Term term);
 
     @Query("SELECT * FROM Terms ORDER BY termId ASC")
-    List<Term> getAllTerms();
+    LiveData<List<Term>> getAllTerms();
 }
