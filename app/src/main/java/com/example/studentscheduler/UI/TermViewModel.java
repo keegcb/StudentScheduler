@@ -1,10 +1,12 @@
 package com.example.studentscheduler.UI;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Application;
 import android.content.Intent;
@@ -26,7 +28,6 @@ public class TermViewModel extends AndroidViewModel {
         repo = new Repository(application);
         allTerms = repo.getAllTerms();
     }
-
 
     public void insert(Term term){
         repo.insertTerm(term);

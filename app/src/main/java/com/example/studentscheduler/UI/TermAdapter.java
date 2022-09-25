@@ -1,5 +1,7 @@
 package com.example.studentscheduler.UI;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +18,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
+    private Context mContext;
     private List<Term> terms = new ArrayList<>();
-    private View.OnClickListener listener;
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
     public TermAdapter.TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_term_view, parent, false);
+
         return new TermViewHolder(view);
     }
 
@@ -32,6 +39,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
             Term currentTerm = terms.get(position);
             holder.termTitle.setText(currentTerm.getTermTitle());
         }
+
     }
 
     @Override
@@ -58,17 +66,16 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
             termTitle = view.findViewById(R.id.txt_term_name);
             termCard = view.findViewById(R.id.card_term_item);
 
-            view.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                if((listener != null) && (position != RecyclerView.NO_POSITION)){
-                    listener.onClick(termCard);
-                }
-            });
+            view.setOnClickListener(view1 -> view1.getContext().startActivity(new Intent(view1.getContext(), TermDetails.class)));
         }
     }
 
     public interface OnItemClickListener {
         void onItemClick(Term term);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
     }
 
 

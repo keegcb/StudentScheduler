@@ -3,6 +3,7 @@ package com.example.studentscheduler.UI;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,13 +38,21 @@ public class TermList extends AppCompatActivity {
         termViewModel = new ViewModelProvider(this).get(TermViewModel.class);
         termViewModel.getAllTerms().observe(this, allTerms -> adapter.setTermList(allTerms));
 
-//TODO: Add logic to click card view and pass term object to new TermDetails activity
-        adapter.setOnItemClickListener(termViewModel -> {
-            Intent intent = new Intent(TermList.this, TermDetails.class);
-            startActivity(intent);
+        /*
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Term deleteTerm = adapter.getTerm(viewHolder.getAdapterPosition());
+            }
         });
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-
+         */
     }
 /*
     protected void onActivityResult(int add, int complete, @NonNull Intent info){
@@ -72,6 +81,11 @@ public class TermList extends AppCompatActivity {
     }
 
     public void BeginTermActivity(View view) {
+    }
+
+    public void goToCourseList(View view) {
+        Intent intent = new Intent(TermList.this, CourseList.class);
+        startActivity(intent);
     }
 
     /*
