@@ -14,74 +14,71 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
-    private Context mContext;
-    private List<Term> terms = new ArrayList<>();
-    private OnItemClickListener listener;
-
-    @NonNull
-    @Override
-    public TermAdapter.TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_term_view, parent, false);
-
-        return new TermViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull TermViewHolder holder, int position) {
-        if(terms != null){
-            Term currentTerm = terms.get(position);
-            holder.termTitle.setText(currentTerm.getTermTitle());
-        }
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return terms.size();
-    }
-
-    public void setTermList(List<Term> terms){
-        this.terms = terms;
-        notifyDataSetChanged();
-    }
-
-    public Term getTerm(int position){
-        return terms.get(position);
-    }
-
+    private final Context mContext;
+    private List<Term> mTerms;
+    private final LayoutInflater mInflator;
 
     class TermViewHolder extends RecyclerView.ViewHolder{
         private final TextView termTitle;
         private final CardView termCard;
 
-        public TermViewHolder(@NonNull View view){
+        public TermViewHolder(View view){
             super(view);
             termTitle = view.findViewById(R.id.txt_term_name);
             termCard = view.findViewById(R.id.card_term_item);
 
-            view.setOnClickListener(view1 -> view1.getContext().startActivity(new Intent(view1.getContext(), TermDetails.class)));
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    final Term currentTerm = mTerms.get(position);
+                    Intent intent = new Intent(mContext, TermDetails.class);
+                    intent.putExtra("id", currentTerm.getTermId());
+                    intent.putExtra("title", currentTerm.getTermTitle());
+                    intent.putExtra("start", currentTerm.getStartDate());
+                    intent.putExtra("end", currentTerm.getEndDate());
+                }
+            });
         }
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(Term term);
+    public TermAdapter(Context context){
+        mInflator = LayoutInflater.from(context);
+        this.mContext = context;
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.listener = listener;
+    @NonNull
+    @Override
+    public TermAdapter.TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+        View itemView = mInflator.inflate(R.layout.term_list_item, parent, false);
+        return new TermViewHolder(itemView);
     }
-
-
 
     @Override
-    public int getItemViewType(final int position){
-        return R.layout.item_term_view;
+    public void onBindViewHolder(@NonNull TermViewHolder holder, int position) {
+        if(mTerms != null){
+            Term currentTerm = mTerms.get(position);
+            String title = currentTerm.getTermTitle();
+            holder.termTitle.setText(title);
+        } else {
+            holder.termTitle.setText("No Title");
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        if(mTerms != null){
+            return mTerms.size();
+        } else {
+            return 0;
+        }
+    }
+
+    public void setTermList(List<Term> terms){
+        mTerms = terms;
+        notifyDataSetChanged();
     }
 }

@@ -16,8 +16,7 @@
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
     app:cardMaxElevation="6dp"
-    app:cardPreventCornerOverlap="true"
-    tools:context=".UI.TermViewModel">
+    app:cardPreventCornerOverlap="true">
 
     <RelativeLayout
         android:layout_width="match_parent"

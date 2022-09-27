@@ -21,7 +21,7 @@ public class Repository {
     private final TermDAO mTermDAO;
     private List<Assessment> mAllAssessments;
     private List<Course> mAllCourses;
-    private LiveData<List<Term>> mAllTerms;
+    private List<Term> mAllTerms;
 
     private static final int NUMBER_OF_THREADS =4;
     static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -143,7 +143,7 @@ public class Repository {
 
     public List<Assessment> getAllAssessments(){
         databaseExecutor.execute(()->{
-
+            mAllAssessments = mAssessmentDAO.getAllAssessments();
         });
         try{
             Thread.sleep(1000);
@@ -151,7 +151,7 @@ public class Repository {
         catch (InterruptedException e){
             e.printStackTrace();
         }
-        return null;
+        return mAllAssessments;
     }
 
     public List<Course> getAllCourses(){
@@ -167,7 +167,7 @@ public class Repository {
         return mAllCourses;
     }
 
-    public LiveData<List<Term>> getAllTerms(){
+    public List<Term> getAllTerms(){
         databaseExecutor.execute(()->{
             mAllTerms = mTermDAO.getAllTerms();
         });
