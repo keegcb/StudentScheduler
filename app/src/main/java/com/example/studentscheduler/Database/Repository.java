@@ -19,8 +19,8 @@ public class Repository {
     private final AssessmentDAO mAssessmentDAO;
     private final CourseDAO mCourseDAO;
     private final TermDAO mTermDAO;
-    private LiveData<List<Assessment>> mAllAssessments;
-    private LiveData<List<Course>> mAllCourses;
+    private List<Assessment> mAllAssessments;
+    private List<Course> mAllCourses;
     private LiveData<List<Term>> mAllTerms;
 
     private static final int NUMBER_OF_THREADS =4;
@@ -156,7 +156,7 @@ public class Repository {
 
     public List<Course> getAllCourses(){
         databaseExecutor.execute(()->{
-
+            mAllCourses = mCourseDAO.getAllCourses();
         });
         try{
             Thread.sleep(1000);
@@ -164,7 +164,7 @@ public class Repository {
         catch (InterruptedException e){
             e.printStackTrace();
         }
-        return null;
+        return mAllCourses;
     }
 
     public LiveData<List<Term>> getAllTerms(){
