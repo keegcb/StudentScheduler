@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.studentscheduler.Database.DateConverter;
 import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
@@ -38,8 +39,9 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                     Intent intent = new Intent(mContext, TermDetails.class);
                     intent.putExtra("id", currentTerm.getTermId());
                     intent.putExtra("title", currentTerm.getTermTitle());
-                    intent.putExtra("start", currentTerm.getStartDate());
-                    intent.putExtra("end", currentTerm.getEndDate());
+                    intent.putExtra("start", DateConverter.toTimestamp(currentTerm.getStartDate()));
+                    intent.putExtra("end", DateConverter.toTimestamp(currentTerm.getEndDate()));
+                    mContext.startActivity(intent);
                 }
             });
         }

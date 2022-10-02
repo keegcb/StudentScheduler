@@ -27,12 +27,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Repository repo = new Repository(getApplication());
+
+    //Creates dummy data to add to the local DB on start
+        /*
         Term term = new Term("Fall Term", Date.from(Instant.now()), Date.from(Instant.now()));
         Course course = new Course("Math", Date.from(Instant.now()), Date.from(Instant.now()), 1, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
         Assessment assessment = new Assessment("Final", 1, Date.from(Instant.now()), Date.from(Instant.now()), true);
         repo.insertTerm(term);
         repo.insertCourse(course);
         repo.insertAssessment(assessment);
+         */
 
         Button termButton = findViewById(R.id.btn_termList);
         Button courseButton = findViewById(R.id.btn_courseList);
