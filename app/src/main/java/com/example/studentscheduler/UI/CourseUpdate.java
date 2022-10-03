@@ -12,7 +12,7 @@ public class CourseUpdate extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_update);
+        setContentView(R.layout.activity_course_add);
     }
 
 }

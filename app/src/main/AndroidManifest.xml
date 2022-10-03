@@ -29,7 +29,7 @@
             android:label="Term List"
             android:parentActivityName=".UI.MainActivity" />
         <activity
-            android:name=".UI.TermUpdate"
+            android:name=".UI.TermAdd"
             android:exported="false"
             android:parentActivityName=".UI.TermList" />
         <activity

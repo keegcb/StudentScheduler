@@ -1,9 +1,12 @@
 package com.example.studentscheduler.UI;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +19,14 @@ import com.example.studentscheduler.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class TermDetails extends AppCompatActivity {
+public class TermAdd extends AppCompatActivity {
+
+    public static final String EDIT_TERM_TITLE = "com.example.studentscheduler.activities.TERM_TITLE";
     TextView termID;
     EditText termName;
     Button startDate;
@@ -36,6 +42,7 @@ public class TermDetails extends AppCompatActivity {
     Long sD;
     Long eD;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +53,10 @@ public class TermDetails extends AppCompatActivity {
         startDate = findViewById(R.id.btn_startDate);
         endDate = findViewById(R.id.btn_endDate);
 
-        id = getIntent().getStringExtra("id");
-        title = getIntent().getStringExtra("name");
-        sD = getIntent().getLongExtra("start", DateConverter.toTimestamp(new Date()));
-        eD = getIntent().getLongExtra("end", DateConverter.toTimestamp(new Date()));
+        //TODO: Add logic to TermDAO to pull next term ID from database and display in ID field
+        id = "##";
+        sD = DateConverter.toTimestamp(Date.from(Instant.now()));
+        eD = DateConverter.toTimestamp(Date.from(Instant.now()));
 
 
         String mFormat = "MM/dd/yyyy";
@@ -67,7 +74,7 @@ public class TermDetails extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(TermDetails.this, sDate, sCalendar.get(Calendar.DAY_OF_MONTH),
+                new DatePickerDialog(TermAdd.this, sDate, sCalendar.get(Calendar.DAY_OF_MONTH),
                         sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.YEAR)).show();
             }
         });
@@ -92,7 +99,7 @@ public class TermDetails extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(TermDetails.this, eDate, eCalendar.get(Calendar.DAY_OF_MONTH),
+                new DatePickerDialog(TermAdd.this, eDate, eCalendar.get(Calendar.DAY_OF_MONTH),
                         eCalendar.get(Calendar.MONTH), eCalendar.get(Calendar.YEAR)).show();
             }
         });
@@ -123,10 +130,5 @@ public class TermDetails extends AppCompatActivity {
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
-    public void toCourseList(View view) {
-        Intent intent = new Intent(TermDetails.this, CourseList.class);
-        startActivity(intent);
-    }
-
-    //TODO: Add functionality to save button to update existing term in Database and TermList
+    //TODO: Add functionality to save button to add new term to Database and TermList
 }

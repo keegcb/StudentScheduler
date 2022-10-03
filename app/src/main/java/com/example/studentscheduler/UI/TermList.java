@@ -21,7 +21,6 @@ import com.example.studentscheduler.R;
 import java.util.List;
 
 public class TermList extends AppCompatActivity {
-    public static final int ADD_TERM = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +51,8 @@ public class TermList extends AppCompatActivity {
     public void BeginTermActivity(View view) {
     }
 
-    public void goToCourseList(View view) {
-        Intent intent = new Intent(TermList.this, CourseList.class);
+    public void goToTermAdd(View view) {
+        Intent intent = new Intent(TermList.this, TermAdd.class);
         startActivity(intent);
     }
 }
