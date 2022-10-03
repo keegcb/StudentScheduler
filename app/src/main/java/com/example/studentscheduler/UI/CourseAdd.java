@@ -7,12 +7,12 @@ import android.os.Bundle;
 
 import com.example.studentscheduler.R;
 
-public class CourseUpdate extends AppCompatActivity{
+public class CourseAdd extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_add);
+        setContentView(R.layout.activity_term_add);
     }
 
 }

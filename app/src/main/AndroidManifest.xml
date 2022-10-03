@@ -33,7 +33,7 @@
             android:exported="false"
             android:parentActivityName=".UI.TermList" />
         <activity
-            android:name=".UI.CourseUpdate"
+            android:name=".UI.CourseAdd"
             android:exported="false"
             android:parentActivityName=".UI.CourseList" />
         <activity
