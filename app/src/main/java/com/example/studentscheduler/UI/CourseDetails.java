@@ -8,6 +8,9 @@ import com.example.studentscheduler.R;
 
 public class CourseDetails extends AppCompatActivity {
 
+
+    //TODO: Create layout UI and add logic
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

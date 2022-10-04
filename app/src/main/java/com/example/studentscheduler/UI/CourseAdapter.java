@@ -38,6 +38,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     int position = getAdapterPosition();
                     final Course currentCourse = mCourses.get(position);
                     Intent intent = new Intent(mContext, CourseDetails.class);
+
+                    //TODO: Add logic to pass values of course item to details screen
+
                     mContext.startActivity(intent);
                 }
             });

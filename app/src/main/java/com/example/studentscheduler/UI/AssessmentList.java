@@ -1,12 +1,20 @@
 package com.example.studentscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Assessment;
+import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.R;
+
+import java.util.List;
 
 public class AssessmentList extends AppCompatActivity {
 
@@ -14,6 +22,16 @@ public class AssessmentList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_list);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_assessment_list);
+        Repository repo = new Repository(getApplication());
+        List<Assessment> assessments = repo.getAllAssessments();
+        final AssessmentAdapter adapter = new AssessmentAdapter(this);
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.setAssessmentList(assessments);
     }
 
     public boolean onCreateOptionMenu(Menu menu){
@@ -28,5 +46,8 @@ public class AssessmentList extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToAssessmentAdd(View view) {
     }
 }

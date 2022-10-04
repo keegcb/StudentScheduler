@@ -92,4 +92,5 @@ public class Assessment {
     public boolean getAlert(){return alert;}
 
     public void setAlert(boolean alert){this.alert = alert;}
+
 }
