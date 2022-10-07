@@ -8,6 +8,7 @@
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_course.xml" value="0.17395833333333333" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_course_add.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_course_details.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_course_detials.xml" value="0.365625" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_course_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_course_update.xml" value="0.5" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_course_view_holder.xml" value="0.36666666666666664" />
@@ -16,7 +17,7 @@
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_main2.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_term_add.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_term_details.xml" value="0.25" />
+        <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_term_details.xml" value="0.33" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_term_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_term_update.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_terms.xml" value="0.36666666666666664" />

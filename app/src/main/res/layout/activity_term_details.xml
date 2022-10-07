@@ -83,6 +83,7 @@
         android:layout_marginStart="104dp"
         android:layout_marginTop="28dp"
         android:text="ID Num"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_term_id"
         app:layout_constraintStart_toStartOf="@+id/txt_term_id"
         app:layout_constraintTop_toTopOf="parent" />
 
