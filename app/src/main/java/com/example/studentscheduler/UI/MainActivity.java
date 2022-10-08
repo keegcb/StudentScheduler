@@ -16,7 +16,9 @@ import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
 import java.sql.Date;
+import java.time.DayOfWeek;
 import java.time.Instant;
+import java.time.Month;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Creates dummy data to add to the local DB on start
         /*
+        for (long i=-1; i<5; i++){
+            Term term = new Term("Fall Term", Date.from(Instant.now().), Date.from(Instant.now()));
+        }
         Term term = new Term("Fall Term", Date.from(Instant.now()), Date.from(Instant.now()));
         Course course = new Course("Math", Date.from(Instant.now()), Date.from(Instant.now()), 1, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
         Assessment assessment = new Assessment("Final", 1, Date.from(Instant.now()), Date.from(Instant.now()), true);
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         repo.insertCourse(course);
         repo.insertAssessment(assessment);
          */
+
 
         Button termButton = findViewById(R.id.btn_termList);
         Button courseButton = findViewById(R.id.btn_courseList);
