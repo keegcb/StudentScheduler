@@ -23,7 +23,7 @@ import java.sql.Date;
 import java.time.Instant;
 
 
-@Database(entities = {Assessment.class, Course.class, Term.class}, version=2, exportSchema = false)
+@Database(entities = {Assessment.class, Course.class, Term.class}, version=1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class DatabaseBuilder extends RoomDatabase {
     public abstract AssessmentDAO assessmentDAO();

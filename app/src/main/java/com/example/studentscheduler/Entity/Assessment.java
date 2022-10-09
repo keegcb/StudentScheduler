@@ -12,7 +12,7 @@ public class Assessment {
 
     private String title;
     private int courseId;
-    private String type;
+    private int type;
     private Date startDate;
     private Date endDate;
     private boolean alert;
@@ -31,7 +31,7 @@ public class Assessment {
                 '}';
     }
 
-    public Assessment(String title, String type, Date startDate, Date endDate, boolean alert) {
+    public Assessment(String title, int type, Date startDate, Date endDate, boolean alert) {
         this.title = title;
         this.type = type;
         this.startDate = startDate;
@@ -55,7 +55,7 @@ public class Assessment {
         return courseId;
     }
 
-    public String getType() { return type; }
+    public int getType() { return type; }
 
     public Date getStartDate() {
         return startDate;
@@ -73,7 +73,7 @@ public class Assessment {
         this.courseId = courseId;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
