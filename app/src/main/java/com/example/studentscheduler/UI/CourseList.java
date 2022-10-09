@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.studentscheduler.Database.Repository;
 import com.example.studentscheduler.Entity.Course;
@@ -45,5 +47,10 @@ public class CourseList extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goToCourseAdd(View view) {
+        Intent intent = new Intent(CourseList.this, CourseAdd.class);
+        startActivity(intent);
     }
 }

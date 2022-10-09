@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Student Scheduler</string>
     <string name="title_activity_assessment_update">AssessmentUpdate</string>
+    <string-array name="course_status">
+        <item>In Progress</item>
+        <item>Completed</item>
+        <item>Dropped</item>
+        <item>Plan to Take</item>
+    </string-array>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

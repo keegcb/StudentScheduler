@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView_courseId"
+        android:id="@+id/text._courseId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -23,7 +23,7 @@
         android:layout_marginTop="32dp"
         android:text="Course Title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_courseId" />
+        app:layout_constraintTop_toBottomOf="@+id/text._courseId" />
 
     <TextView
         android:id="@+id/text_courseStart"
@@ -95,15 +95,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_instructorPhone" />
 
-    <EditText
-        android:id="@+id/editTxt_courseId"
+    <TextView
+        android:id="@+id/textView_courseId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="164dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_courseId"
+        app:layout_constraintBottom_toBottomOf="@+id/text._courseId"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -139,7 +139,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/text_courseEnd"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <Spinner
         android:id="@+id/btn_courseStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -191,4 +191,24 @@
         android:text="Name"
         app:layout_constraintBottom_toBottomOf="@+id/textTerm"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_deleteCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="32dp"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_saveCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="32dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
