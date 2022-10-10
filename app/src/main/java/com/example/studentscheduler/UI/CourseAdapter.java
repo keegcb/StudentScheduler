@@ -39,7 +39,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     final Course currentCourse = mCourses.get(position);
                     Intent intent = new Intent(mContext, CourseDetails.class);
 
-                    //TODO: Add logic to pass values of course item to details screen
+                    intent.putExtra("id", Integer.toString(currentCourse.getCourseId()));
+                    intent.putExtra("title", currentCourse.getCourseTitle());
+                    intent.putExtra("start", DateConverter.toTimestamp(currentCourse.getStartDate()));
+                    intent.putExtra("end", DateConverter.toTimestamp(currentCourse.getEndDate()));
+                    intent.putExtra("name", currentCourse.getInstructorName());
+                    intent.putExtra("email", currentCourse.getInstructorEmail());
+                    intent.putExtra("phone", currentCourse.getInstructorPhone());
+                //TODO: Decide how to display term name in course detailed view and pass term title or query title from Id
+                    intent.putExtra("term", currentCourse.getTermId());
 
                     mContext.startActivity(intent);
                 }

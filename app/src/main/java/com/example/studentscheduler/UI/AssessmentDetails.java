@@ -60,10 +60,15 @@ public class AssessmentDetails extends AppCompatActivity {
         id = getIntent().getStringExtra("id");
         aTitle = getIntent().getStringExtra("title");
         cId = getIntent().getStringExtra("courseId");
-        cTitle = getIntent().getStringExtra("courseTitle");
+      // cTitle = getIntent().getStringExtra("courseTitle");
         type = getIntent().getStringExtra("type");
         sD = getIntent().getLongExtra("start", DateConverter.toTimestamp(new Date()));
         eD = getIntent().getLongExtra("end", DateConverter.toTimestamp(new Date()));
+
+        assessmentId.setText(id);
+        assessmentTitle.setText(aTitle);
+        assCourseId.setText(cId);
+    //TODO: Populate and display spinner for assessment type
 
         String mFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);

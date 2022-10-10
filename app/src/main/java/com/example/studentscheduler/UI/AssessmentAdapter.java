@@ -39,7 +39,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                     final Assessment currentAssessment = mAssessment.get(position);
                     Intent intent = new Intent(mContext, AssessmentDetails.class);
 
-                    intent.putExtra("id", currentAssessment.getAssessmentId());
+                    intent.putExtra("id", Integer.toString(currentAssessment.getAssessmentId()));
                     intent.putExtra("title", currentAssessment.getTitle());
                     intent.putExtra("courseId", currentAssessment.getCourseId());
                 //TODO: Create SQL query to pull Course Title from ID and use to push extra to Assessment Details screen

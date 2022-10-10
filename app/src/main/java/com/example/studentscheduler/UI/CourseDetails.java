@@ -27,7 +27,7 @@ public class CourseDetails extends AppCompatActivity {
     EditText courseTitle;
     Button startDate;
     Button endDate;
-    Button setStatus;
+    Spinner statusSpinner;
     EditText instructor;
     EditText email;
     EditText phone;
@@ -59,7 +59,7 @@ public class CourseDetails extends AppCompatActivity {
 
         courseId = findViewById(R.id.textView_courseId);
         courseTitle = findViewById(R.id.editTxt_courseTitle);
-        Spinner statusSpinner = findViewById(R.id.btn_courseStatus);
+        statusSpinner = findViewById(R.id.spn_courseStatus);
         ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(this, R.array.course_status, android.R.layout.simple_spinner_item);
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         statusSpinner.setAdapter(statusAdapter);
@@ -79,8 +79,21 @@ public class CourseDetails extends AppCompatActivity {
         email = findViewById(R.id.editText_email);
         phone = findViewById(R.id.editText_phone);
         termSelect = findViewById(R.id.btn_courseList);
+        startDate = findViewById(R.id.btn_courseStart);
+        endDate = findViewById(R.id.btn_courseEnd);
         courseDelete = findViewById(R.id.btn_deleteCourse);
         courseSave = findViewById(R.id.btn_saveCourse);
+
+        id = getIntent().getStringExtra("id");
+        cTitle = getIntent().getStringExtra("title");
+        cStatus = getIntent().getStringExtra("status");
+        instructorName = getIntent().getStringExtra("name");
+        instructorEmail = getIntent().getStringExtra("email");
+        instructorPhone = getIntent().getStringExtra("phone");
+
+        courseId.setText(id);
+        courseTitle.setText(cTitle);
+    //TODO: Set spinner value to reflect status of course
 
         String mFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);

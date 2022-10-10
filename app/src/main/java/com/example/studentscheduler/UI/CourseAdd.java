@@ -11,20 +11,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.example.studentscheduler.Database.Repository;
-import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class CourseAdd extends AppCompatActivity{
@@ -68,7 +64,7 @@ public class CourseAdd extends AppCompatActivity{
         courseTitle = findViewById(R.id.editTxt_courseTitle);
         startDate = findViewById(R.id.btn_courseStart);
         endDate = findViewById(R.id.btn_courseEnd);
-        statusSpinner = findViewById(R.id.spn_courseStatus);
+        statusSpinner = findViewById(R.id.spn_addCourseStatus);
         ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(this, R.array.course_status, android.R.layout.simple_spinner_item);
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         statusSpinner.setAdapter(statusAdapter);
