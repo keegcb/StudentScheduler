@@ -37,6 +37,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                     int position = getAdapterPosition();
                     final Term currentTerm = mTerms.get(position);
                     Intent intent = new Intent(mContext, TermDetails.class);
+    //TODO: Make sure Id is passed as a string value and not int
                     intent.putExtra("id", currentTerm.getTermId());
                     intent.putExtra("title", currentTerm.getTermTitle());
                     intent.putExtra("start", DateConverter.toTimestamp(currentTerm.getStartDate()));

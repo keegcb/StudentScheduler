@@ -182,8 +182,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/text_instructorPhone"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btn_termTitle"
+    <Spinner
+        android:id="@+id/spn_addTermList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="164dp"

@@ -37,7 +37,7 @@
             android:exported="false"
             android:parentActivityName=".UI.CourseList" />
         <activity
-            android:name=".UI.AssessmentUpdate"
+            android:name=".UI.AssessmentAdd"
             android:exported="false"
             android:parentActivityName=".UI.AssessmentList" />
         <activity

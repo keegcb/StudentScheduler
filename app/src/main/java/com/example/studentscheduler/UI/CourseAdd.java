@@ -11,15 +11,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CourseAdd extends AppCompatActivity{
@@ -32,7 +37,7 @@ public class CourseAdd extends AppCompatActivity{
     EditText instructor;
     EditText email;
     EditText phone;
-    Button termSelect;
+    Spinner termSpinner;
     Button courseDelete;
     Button courseSave;
 
@@ -57,6 +62,7 @@ public class CourseAdd extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_add);
+        Repository repo = new Repository(getApplication());
 
         courseId = findViewById(R.id.textView_courseId);
         courseTitle = findViewById(R.id.editTxt_courseTitle);
@@ -70,7 +76,7 @@ public class CourseAdd extends AppCompatActivity{
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                //TODO: Add logic to show selected item in spinner
             }
 
             @Override
@@ -78,10 +84,19 @@ public class CourseAdd extends AppCompatActivity{
 
             }
         });
+
+        //TODO: Implement display list of terms in spinner or other object
+/*
+        termSpinner = findViewById(R.id.spn_addTermList);
+        List<Term> terms = repo.getAllTerms();
+        final TermAdapter adapter = new TermAdapter(this);
+        termSpinner.setAdapter((SpinnerAdapter) adapter);
+        adapter.setTermList(terms);
+ */
+
         instructor = findViewById(R.id.editText_name);
         email = findViewById(R.id.editText_email);
         phone = findViewById(R.id.editText_phone);
-        termSelect = findViewById(R.id.btn_courseList);
         courseDelete = findViewById(R.id.btn_deleteCourse);
         courseSave = findViewById(R.id.btn_saveCourse);
 

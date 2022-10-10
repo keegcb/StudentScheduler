@@ -33,8 +33,8 @@ public class TermDetails extends AppCompatActivity {
 
     String id;
     String title;
-    Long sD;
-    Long eD;
+    long sD;
+    long eD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
