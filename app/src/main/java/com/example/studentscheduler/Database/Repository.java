@@ -10,6 +10,7 @@ import com.example.studentscheduler.DAO.TermDAO;
 import com.example.studentscheduler.Entity.Assessment;
 import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.Entity.Term;
+import com.example.studentscheduler.UI.AssessmentDetails;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -22,6 +23,12 @@ public class Repository {
     private List<Assessment> mAllAssessments;
     private List<Course> mAllCourses;
     private List<Term> mAllTerms;
+    private Term mTerm;
+    private Course mCourse;
+    private Assessment mAssessment;
+    private int assId;
+    private int cId;
+    private int tId;
 
     private static final int NUMBER_OF_THREADS =4;
     static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -179,4 +186,83 @@ public class Repository {
         }
         return mAllTerms;
     }
+
+    public int getMaxTermId(){
+        databaseExecutor.execute(()->{
+            tId = mTermDAO.getMaxTermId();
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return tId;
+    }
+
+    public int getMaxCourseId(){
+        databaseExecutor.execute(()->{
+            cId = mCourseDAO.getMaxCourseId();
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return cId;
+    }
+
+    public int getMaxAssessmentId(){
+        databaseExecutor.execute(()->{
+            assId = mAssessmentDAO.getMaxAssessmentId();
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return assId;
+    }
+
+    public Term getTermInfo(int id){
+        databaseExecutor.execute(()->{
+            mTerm = mTermDAO.getTermInfo(id);
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return mTerm;
+    }
+
+    public Course getCourseInfo(int id){
+        databaseExecutor.execute(()->{
+            mCourse = mCourseDAO.getCourseInfo(id);
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return mCourse;
+    }
+
+    public Assessment getAssessmentInfo(int id){
+        databaseExecutor.execute(()->{
+            mAssessment = mAssessmentDAO.getAssessmentInfo(id);
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return mAssessment;
+    }
+
 }

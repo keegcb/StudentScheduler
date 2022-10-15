@@ -2,7 +2,10 @@ package com.example.studentscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.studentscheduler.Database.DateConverter;
+import com.example.studentscheduler.Database.Repository;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
@@ -35,6 +39,8 @@ public class TermDetails extends AppCompatActivity {
     String title;
     long sD;
     long eD;
+    Repository repo = new Repository(getApplication());
+    Context mContex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,9 +129,27 @@ public class TermDetails extends AppCompatActivity {
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
-    public void toCourseList(View view) {
-        Intent intent = new Intent(TermDetails.this, CourseList.class);
-        startActivity(intent);
+    public void deleteTerm(View view){
+        //TODO: Add check for associated Courses
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContex);
+        builder.setCancelable(true);
+        builder.setMessage("Are you sure you want to delete this term?");
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                repo.deleteTerm(repo.getTermInfo(Integer.parseInt(id)));
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void saveTerm(View view) {
     }
 
     //TODO: Add functionality to save button to update existing term in Database and TermList

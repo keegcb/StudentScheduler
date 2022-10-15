@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             Term term = new Term(tname, Date.from(Instant.now().plus(i-1, ChronoUnit.MONTHS)), Date.from(Instant.now().plus(i, ChronoUnit.MONTHS)));
             Course course = new Course(cname, Date.from(Instant.now().plus(i-1, ChronoUnit.MONTHS)), Date.from(Instant.now().plus(i,ChronoUnit.MONTHS)), status, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
-            Assessment assessment = new Assessment(aname, i, Date.from(Instant.now().plus(i-1, ChronoUnit.MONTHS)), Date.from(Instant.now().plus(i, ChronoUnit.MONTHS)), true);
+            Assessment assessment = new Assessment(aname, i, i, Date.from(Instant.now().plus(i-1, ChronoUnit.MONTHS)), Date.from(Instant.now().plus(i, ChronoUnit.MONTHS)), true);
             repo.insertTerm(term);
             repo.insertCourse(course);
             repo.insertAssessment(assessment);
@@ -84,11 +84,12 @@ public class MainActivity extends AppCompatActivity {
 /*
         Term term = new Term("Fall Term", Date.from(Instant.now()), Date.from(Instant.now()));
         Course course = new Course("Math", Date.from(Instant.now()), Date.from(Instant.now()), 1, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
-        Assessment assessment = new Assessment("Final", 1, Date.from(Instant.now()), Date.from(Instant.now()), true);
+        Assessment assessment = new Assessment("Final", 1, 1, Date.from(Instant.now()), Date.from(Instant.now()), true);
         repo.insertTerm(term);
         repo.insertCourse(course);
         repo.insertAssessment(assessment);
  */
+
 
 
         Button termButton = findViewById(R.id.btn_termList);

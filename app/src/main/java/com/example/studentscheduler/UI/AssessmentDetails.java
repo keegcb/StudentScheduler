@@ -2,7 +2,10 @@ package com.example.studentscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.studentscheduler.Database.DateConverter;
+import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
@@ -42,6 +47,9 @@ public class AssessmentDetails extends AppCompatActivity {
     String type;
     long sD;
     long eD;
+    private Course mCourse;
+    Repository repo = new Repository(getApplication());
+    Context mContex;
 
 
     @Override
@@ -60,7 +68,10 @@ public class AssessmentDetails extends AppCompatActivity {
         id = getIntent().getStringExtra("id");
         aTitle = getIntent().getStringExtra("title");
         cId = getIntent().getStringExtra("courseId");
-      // cTitle = getIntent().getStringExtra("courseTitle");
+
+        mCourse = repo.getCourseInfo(Integer.parseInt(cId));
+        cTitle = mCourse.getCourseTitle();
+
         type = getIntent().getStringExtra("type");
         sD = getIntent().getLongExtra("start", DateConverter.toTimestamp(new Date()));
         eD = getIntent().getLongExtra("end", DateConverter.toTimestamp(new Date()));
@@ -68,6 +79,7 @@ public class AssessmentDetails extends AppCompatActivity {
         assessmentId.setText(id);
         assessmentTitle.setText(aTitle);
         assCourseId.setText(cId);
+        assCourseTitle.setText(cTitle);
     //TODO: Populate and display spinner for assessment type
 
         String mFormat = "MM/dd/yyyy";
@@ -136,5 +148,24 @@ public class AssessmentDetails extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
         endDate.setText(sdf.format(eCalendar.getTime()));
+    }
+
+    public void deleteAssessment(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContex);
+            builder.setCancelable(true);
+            builder.setMessage("Are you sure you want to delete this assessment?");
+            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                repo.deleteAssessment(repo.getAssessmentInfo(Integer.parseInt(id)));
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
     }
 }

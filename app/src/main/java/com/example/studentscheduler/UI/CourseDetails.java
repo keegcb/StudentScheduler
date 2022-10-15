@@ -2,7 +2,10 @@ package com.example.studentscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.studentscheduler.Database.Repository;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
@@ -48,9 +52,8 @@ public class CourseDetails extends AppCompatActivity {
     String instructorName;
     String instructorEmail;
     String instructorPhone;
-
-
-    //TODO: Create layout UI and add logic
+    Repository repo = new Repository(getApplication());
+    Context mContex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +96,9 @@ public class CourseDetails extends AppCompatActivity {
 
         courseId.setText(id);
         courseTitle.setText(cTitle);
+        instructor.setText(instructorName);
+        email.setText(instructorEmail);
+        phone.setText(instructorPhone);
     //TODO: Set spinner value to reflect status of course
 
         String mFormat = "MM/dd/yyyy";
@@ -161,5 +167,25 @@ public class CourseDetails extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
         endDate.setText(sdf.format(eCalendar.getTime()));
+    }
+
+    public void deleteCourse(View view) {
+        //TODO: Check if assessments are associated with Course before delete
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContex);
+        builder.setCancelable(true);
+        builder.setMessage("Are you sure you want to delete this course?");
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                repo.deleteCourse(repo.getCourseInfo(Integer.parseInt(id)));
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

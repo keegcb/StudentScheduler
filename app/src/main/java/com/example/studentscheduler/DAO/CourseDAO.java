@@ -25,4 +25,9 @@ public interface CourseDAO {
     @Query("SELECT * FROM Courses ORDER BY courseId ASC")
     List<Course> getAllCourses();
 
+    @Query("SELECT * FROM Courses WHERE courseId= :courseId ORDER BY courseId ASC")
+    Course getCourseInfo(int courseId);
+
+    @Query("SELECT MAX(courseId) FROM Courses")
+    int getMaxCourseId();
 }

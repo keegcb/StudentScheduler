@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.studentscheduler.Database.DateConverter;
+import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
@@ -31,6 +33,7 @@ public class TermAdd extends AppCompatActivity {
     EditText termName;
     Button startDate;
     Button endDate;
+    Button save;
 
     DatePickerDialog.OnDateSetListener sDate;
     final Calendar sCalendar = Calendar.getInstance();
@@ -41,6 +44,9 @@ public class TermAdd extends AppCompatActivity {
     String title;
     Long sD;
     Long eD;
+    private Term maxTerm;
+    private boolean hasValues = false;
+    Repository repo = new Repository(getApplication());
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -52,9 +58,11 @@ public class TermAdd extends AppCompatActivity {
         termName = findViewById(R.id.editText_termName);
         startDate = findViewById(R.id.btn_startDate);
         endDate = findViewById(R.id.btn_endDate);
+        save = findViewById(R.id.btn_saveTerm);
 
-        //TODO: Add logic to TermDAO to pull next term ID from database and display in ID field
-        id = "##";
+        int tId = repo.getMaxTermId();
+        id = Integer.toString(tId+1);
+
         sD = DateConverter.toTimestamp(Date.from(Instant.now()));
         eD = DateConverter.toTimestamp(Date.from(Instant.now()));
 
@@ -112,7 +120,6 @@ public class TermAdd extends AppCompatActivity {
                 updateEndDate();
             }
         };
-
         termID.setText(id);
         termName.setText(title);
     }
@@ -130,5 +137,22 @@ public class TermAdd extends AppCompatActivity {
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
-    //TODO: Add functionality to save button to add new term to Database and TermList
+    //TODO: Pull selected date from date picker to include in insert statement
+    public void saveTerm(){
+        save.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (hasValues){
+                            //boolean isAdded = repo.insertTerm(termName.getText(), );
+                        }
+
+                    }
+                }
+        );
+    }
+
+    public boolean checkFields(){
+        return hasValues;
+    }
 }

@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.studentscheduler.DAO.CourseDAO;
 import com.example.studentscheduler.Database.DateConverter;
+import com.example.studentscheduler.Database.Repository;
 import com.example.studentscheduler.Entity.Assessment;
 import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.R;
@@ -41,9 +43,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 
                     intent.putExtra("id", Integer.toString(currentAssessment.getAssessmentId()));
                     intent.putExtra("title", currentAssessment.getTitle());
-                    intent.putExtra("courseId", currentAssessment.getCourseId());
-                //TODO: Create SQL query to pull Course Title from ID and use to push extra to Assessment Details screen
-                    // intent.putExtra("courseTitle", currentCourse.getTitle(currentAssessment.getCourseId());
+                    intent.putExtra("courseId", Integer.toString(currentAssessment.getCourseId()));
                     intent.putExtra("type", currentAssessment.getType());
                     intent.putExtra("start", DateConverter.toTimestamp(currentAssessment.getStartDate()));
                     intent.putExtra("end", DateConverter.toTimestamp(currentAssessment.getEndDate()));

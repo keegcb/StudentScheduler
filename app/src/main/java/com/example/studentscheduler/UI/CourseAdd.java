@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
@@ -50,9 +51,7 @@ public class CourseAdd extends AppCompatActivity{
     String instructorName;
     String instructorEmail;
     String instructorPhone;
-
-
-    //TODO: Create layout UI and add logic
+    private Course maxCourse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +95,8 @@ public class CourseAdd extends AppCompatActivity{
         courseDelete = findViewById(R.id.btn_deleteCourse);
         courseSave = findViewById(R.id.btn_saveCourse);
 
+        int cId = repo.getMaxCourseId();
+        id = Integer.toString(cId+1);
         courseId.setText(id);
         courseTitle.setText(cTitle);
         instructor.setText(instructorName);

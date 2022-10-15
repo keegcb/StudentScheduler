@@ -24,4 +24,10 @@ public interface AssessmentDAO {
 
     @Query("SELECT * FROM Assessment ORDER BY assessmentId ASC")
     List<Assessment> getAllAssessments();
+
+    @Query("SELECT MAX(assessmentId) FROM Assessment")
+    int getMaxAssessmentId();
+
+    @Query("SELECT * FROM Assessment WHERE assessmentId= :id")
+    Assessment getAssessmentInfo(int id);
 }
