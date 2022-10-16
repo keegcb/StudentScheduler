@@ -30,4 +30,7 @@ public interface AssessmentDAO {
 
     @Query("SELECT * FROM Assessment WHERE assessmentId= :id")
     Assessment getAssessmentInfo(int id);
+
+    @Query("SELECT * FROM Assessment WHERE courseId= :id")
+    Assessment courseAssessment(int id);
 }

@@ -265,4 +265,29 @@ public class Repository {
         return mAssessment;
     }
 
+    public Assessment courseAssessment(int id){
+        databaseExecutor.execute(()->{
+            mAssessment = mAssessmentDAO.courseAssessment(id);
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return mAssessment;
+    }
+
+    public Course termCourse(int id){
+        databaseExecutor.execute(()->{
+            mCourse = mCourseDAO.termCourse(id);
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return mCourse;
+    }
 }

@@ -41,6 +41,7 @@ public class TermDetails extends AppCompatActivity {
     long eD;
     Repository repo = new Repository(getApplication());
     Context mContex;
+    private boolean noCourse = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +131,9 @@ public class TermDetails extends AppCompatActivity {
     }
 
     public void deleteTerm(View view){
+        if (repo.termCourse(Integer.parseInt(id)) == null){
+            noCourse = true;
+        }
         //TODO: Add check for associated Courses
         AlertDialog.Builder builder = new AlertDialog.Builder(mContex);
         builder.setCancelable(true);

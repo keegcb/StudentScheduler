@@ -30,4 +30,7 @@ public interface CourseDAO {
 
     @Query("SELECT MAX(courseId) FROM Courses")
     int getMaxCourseId();
+
+    @Query("SELECT * FROM Courses WHERE termId= :termId")
+    Course termCourse(int termId);
 }

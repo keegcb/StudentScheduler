@@ -54,6 +54,7 @@ public class CourseDetails extends AppCompatActivity {
     String instructorPhone;
     Repository repo = new Repository(getApplication());
     Context mContex;
+    private boolean noAssessments = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,22 +171,32 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     public void deleteCourse(View view) {
-        //TODO: Check if assessments are associated with Course before delete
+        if (repo.courseAssessment(Integer.parseInt(id)) == null){
+            noAssessments = true;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(mContex);
-        builder.setCancelable(true);
-        builder.setMessage("Are you sure you want to delete this course?");
-        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                repo.deleteCourse(repo.getCourseInfo(Integer.parseInt(id)));
-            }
-        });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        if (noAssessments){
+            builder.setCancelable(true);
+            builder.setMessage("Are you sure you want to delete this course?");
+            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    repo.deleteCourse(repo.getCourseInfo(Integer.parseInt(id)));
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            builder.setMessage("Course cannot be deleted while existing assessments are associated.");
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        //TODO: Check if assessments are associated with Course before delete
+
     }
 }
