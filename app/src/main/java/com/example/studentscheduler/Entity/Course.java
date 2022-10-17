@@ -21,17 +21,7 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course{" +
-                "courseId=" + courseId +
-                ", courseTitle='" + courseTitle + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", status=" + status +
-                ", instructorName='" + instructorName + '\'' +
-                ", instructorPhone='" + instructorPhone + '\'' +
-                ", instructorEmail='" + instructorEmail + '\'' +
-                ", termId=" + termId +
-                '}';
+        return this.courseId+"";
     }
 
     public Course(String courseTitle, Date startDate, Date endDate, int status, String instructorName, String instructorPhone, String instructorEmail) {

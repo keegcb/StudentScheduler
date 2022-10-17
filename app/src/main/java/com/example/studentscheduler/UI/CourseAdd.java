@@ -16,12 +16,14 @@ import android.widget.TextView;
 
 import com.example.studentscheduler.Database.Repository;
 import com.example.studentscheduler.Entity.Course;
+import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CourseAdd extends AppCompatActivity{
@@ -34,6 +36,7 @@ public class CourseAdd extends AppCompatActivity{
     EditText instructor;
     EditText email;
     EditText phone;
+    TextView termTitle;
     Spinner termSpinner;
     Button courseDelete;
     Button courseSave;
@@ -51,7 +54,10 @@ public class CourseAdd extends AppCompatActivity{
     String instructorName;
     String instructorEmail;
     String instructorPhone;
+    String tTitle;
     private Course maxCourse;
+    private Term mTerm;
+    private List<Term> termList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +69,8 @@ public class CourseAdd extends AppCompatActivity{
         courseTitle = findViewById(R.id.editTxt_courseTitle);
         startDate = findViewById(R.id.btn_courseStart);
         endDate = findViewById(R.id.btn_courseEnd);
+        termSpinner = findViewById(R.id.spn_addTermList);
+        termTitle = findViewById(R.id.textView_addTermTitle);
         statusSpinner = findViewById(R.id.spn_addCourseStatus);
         ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(this, R.array.course_status, android.R.layout.simple_spinner_item);
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -103,6 +111,25 @@ public class CourseAdd extends AppCompatActivity{
         email.setText(instructorEmail);
         phone.setText(instructorPhone);
 
+        termList = repo.getAllTerms();
+        ArrayAdapter<Term> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termList);
+        termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        termSpinner.setAdapter(termAdapter);
+        termSpinner.setSelection(0);
+        termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String stringId = adapterView.getItemAtPosition(i).toString();
+                mTerm = repo.getTermInfo(Integer.parseInt(stringId));
+                tTitle = mTerm.getTermTitle();
+                termTitle.setText(tTitle);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         String mFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
@@ -170,5 +197,9 @@ public class CourseAdd extends AppCompatActivity{
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
         endDate.setText(sdf.format(eCalendar.getTime()));
+    }
+
+    public void saveCourse(){
+        //TODO: Save course & check if there is a course that already exists with the chosen title
     }
 }

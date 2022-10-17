@@ -9,6 +9,7 @@ import androidx.room.Update;
 
 import com.example.studentscheduler.Entity.Course;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -33,4 +34,7 @@ public interface CourseDAO {
 
     @Query("SELECT * FROM Courses WHERE termId= :termId")
     Course termCourse(int termId);
+
+    @Query("SELECT * FROM Courses WHERE courseTitle= :courseT")
+    Course getByTitle(String courseT);
 }

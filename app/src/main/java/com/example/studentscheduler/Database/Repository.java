@@ -12,6 +12,7 @@ import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.UI.AssessmentDetails;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,6 +24,9 @@ public class Repository {
     private List<Assessment> mAllAssessments;
     private List<Course> mAllCourses;
     private List<Term> mAllTerms;
+    private ArrayList<Assessment> arrayAssessments;
+    private ArrayList<Course> arrayCourses;
+    private ArrayList<Term> arrayTerms;
     private Term mTerm;
     private Course mCourse;
     private Assessment mAssessment;
@@ -281,6 +285,19 @@ public class Repository {
     public Course termCourse(int id){
         databaseExecutor.execute(()->{
             mCourse = mCourseDAO.termCourse(id);
+        });
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return mCourse;
+    }
+
+    public Course getIdByTitle(String courseT) {
+        databaseExecutor.execute(()->{
+            mCourse = mCourseDAO.getByTitle(courseT);
         });
         try{
             Thread.sleep(1000);

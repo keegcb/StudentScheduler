@@ -17,12 +17,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CourseDetails extends AppCompatActivity {
@@ -35,7 +37,8 @@ public class CourseDetails extends AppCompatActivity {
     EditText instructor;
     EditText email;
     EditText phone;
-    Button termSelect;
+    TextView termTitle;
+    Spinner termSpinner;
     Button courseDelete;
     Button courseSave;
 
@@ -52,9 +55,13 @@ public class CourseDetails extends AppCompatActivity {
     String instructorName;
     String instructorEmail;
     String instructorPhone;
+    String tTitle;
     Repository repo = new Repository(getApplication());
     Context mContex;
     private boolean noAssessments = false;
+    private List<Term> termList;
+    private Term mTerm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +89,8 @@ public class CourseDetails extends AppCompatActivity {
         instructor = findViewById(R.id.editText_name);
         email = findViewById(R.id.editText_email);
         phone = findViewById(R.id.editText_phone);
-        termSelect = findViewById(R.id.btn_courseList);
+        termSpinner = findViewById(R.id.spn_termList);
+        termTitle = findViewById(R.id.textView_termTitle);
         startDate = findViewById(R.id.btn_courseStart);
         endDate = findViewById(R.id.btn_courseEnd);
         courseDelete = findViewById(R.id.btn_deleteCourse);
@@ -101,6 +109,26 @@ public class CourseDetails extends AppCompatActivity {
         email.setText(instructorEmail);
         phone.setText(instructorPhone);
     //TODO: Set spinner value to reflect status of course
+
+        termList = repo.getAllTerms();
+        ArrayAdapter<Term> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termList);
+        termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        termSpinner.setAdapter(termAdapter);
+        termSpinner.setSelection(0);
+        termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String stringId = adapterView.getItemAtPosition(i).toString();
+                mTerm = repo.getTermInfo(Integer.parseInt(stringId));
+                tTitle = mTerm.getTermTitle();
+                termTitle.setText(tTitle);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         String mFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -13,20 +15,22 @@ import android.widget.TextView;
 
 import com.example.studentscheduler.Database.Repository;
 import com.example.studentscheduler.Entity.Assessment;
+import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class AssessmentAdd extends AppCompatActivity {
 
     TextView assessmentId;
     EditText assessmentTitle;
-    TextView assCourseId;
-    Button assCourseTitle;
+    TextView assCourseTitle;
+    Spinner addCourseSpinner;
     Spinner typeSpinner;
     Button startDate;
     Button endDate;
@@ -43,18 +47,21 @@ public class AssessmentAdd extends AppCompatActivity {
     String type;
     long sD;
     long eD;
+    Repository repo = new Repository(getApplication());
     private Assessment maxAssessment;
+    private Course mCourse;
+    private List<Course> courseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_add);
-        Repository repo = new Repository(getApplication());
+
 
         assessmentId = findViewById(R.id.textView_addAssessmentId);
         assessmentTitle = findViewById(R.id.editText_addAssessmentTitle);
-        assCourseId = findViewById(R.id.textView_addAssessmentCourseId);
-        assCourseTitle = findViewById(R.id.btn_addAssessmentCourseName);
+        assCourseTitle = findViewById(R.id.textView_addAssessmentCourseTitle);
+        addCourseSpinner = findViewById(R.id.spn_addAssessmentCourseId);
         typeSpinner = findViewById(R.id.spn_addTermList);
         startDate = findViewById(R.id.btn_addAssStartDate);
         endDate = findViewById(R.id.btn_addAssEndDate);
@@ -62,6 +69,26 @@ public class AssessmentAdd extends AppCompatActivity {
         int assId = repo.getMaxAssessmentId();
         id = Integer.toString(assId+1);
         assessmentId.setText(id);
+
+        courseList = repo.getAllCourses();
+        ArrayAdapter<Course> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseList);
+        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        addCourseSpinner.setAdapter(courseAdapter);
+        addCourseSpinner.setSelection(0);
+        addCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String stringId = adapterView.getItemAtPosition(i).toString();
+                mCourse = repo.getCourseInfo(Integer.parseInt(stringId));
+                cTitle = mCourse.getCourseTitle();
+                assCourseTitle.setText(cTitle);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         String mFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
@@ -129,5 +156,10 @@ public class AssessmentAdd extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
         endDate.setText(sdf.format(eCalendar.getTime()));
+    }
+
+    public void saveAssessment(){
+        //TODO: Get value of item from spinner to identify course in DB
+
     }
 }

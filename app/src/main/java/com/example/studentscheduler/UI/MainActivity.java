@@ -82,14 +82,16 @@ public class MainActivity extends AppCompatActivity {
  */
 
 /*
-        Term term = new Term("Fall Term", Date.from(Instant.now()), Date.from(Instant.now()));
-        Course course = new Course("Math", Date.from(Instant.now()), Date.from(Instant.now()), 1, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
-        Assessment assessment = new Assessment("Final", 1, 1, Date.from(Instant.now()), Date.from(Instant.now()), true);
+        Term term = new Term("Spring Term", Date.from(Instant.now()), Date.from(Instant.now()));
+        Course course = new Course("Physics", Date.from(Instant.now()), Date.from(Instant.now()), 1, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
+        Assessment assessment = new Assessment("Final", 3, 1, Date.from(Instant.now()), Date.from(Instant.now()), true);
+        Assessment assessment2 = new Assessment("Quiz", 2, 3, Date.from(Instant.now()), Date.from(Instant.now()), true);
         repo.insertTerm(term);
         repo.insertCourse(course);
         repo.insertAssessment(assessment);
- */
+        repo.insertAssessment(assessment2);
 
+ */
 
 
         Button termButton = findViewById(R.id.btn_termList);
