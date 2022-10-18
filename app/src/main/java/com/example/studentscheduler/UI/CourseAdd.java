@@ -55,6 +55,7 @@ public class CourseAdd extends AppCompatActivity{
     String instructorEmail;
     String instructorPhone;
     String tTitle;
+    String tId;
     private Course maxCourse;
     private Term mTerm;
     private List<Term> termList;
@@ -115,7 +116,17 @@ public class CourseAdd extends AppCompatActivity{
         ArrayAdapter<Term> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termList);
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         termSpinner.setAdapter(termAdapter);
-        termSpinner.setSelection(0);
+        String sId = "";
+        do {
+            int i = 0;
+            sId = termSpinner.getItemAtPosition(i).toString();
+            if (sId.equals(tId)){
+                termSpinner.setSelection(i);
+                mTerm = repo.getTermInfo(Integer.parseInt(sId));
+                tTitle = mTerm.getTermTitle();
+                termTitle.setText(tTitle);
+            }
+        } while(!sId.equals(tId));
         termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

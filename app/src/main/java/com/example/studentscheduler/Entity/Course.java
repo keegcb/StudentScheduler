@@ -24,8 +24,9 @@ public class Course {
         return this.courseId+"";
     }
 
-    public Course(String courseTitle, Date startDate, Date endDate, int status, String instructorName, String instructorPhone, String instructorEmail) {
+    public Course(String courseTitle, int termId, Date startDate, Date endDate, int status, String instructorName, String instructorPhone, String instructorEmail) {
         this.courseTitle = courseTitle;
+        this.termId = termId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;

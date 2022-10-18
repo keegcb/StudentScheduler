@@ -47,6 +47,8 @@ public class TermAdd extends AppCompatActivity {
     private Term maxTerm;
     private boolean hasValues = false;
     Repository repo = new Repository(getApplication());
+    String mFormat = "MM/dd/yy";
+    SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -66,9 +68,6 @@ public class TermAdd extends AppCompatActivity {
         sD = DateConverter.toTimestamp(Date.from(Instant.now()));
         eD = DateConverter.toTimestamp(Date.from(Instant.now()));
 
-
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         String currentStartDate = sdf.format(sD);
         String currentEndDate = sdf.format(eD);
         startDate.setText(currentStartDate);
@@ -125,15 +124,9 @@ public class TermAdd extends AppCompatActivity {
     }
 
     public void updateStartDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
         startDate.setText(sdf.format(sCalendar.getTime()));
     }
     public void updateEndDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 

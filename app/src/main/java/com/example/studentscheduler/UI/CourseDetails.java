@@ -56,11 +56,14 @@ public class CourseDetails extends AppCompatActivity {
     String instructorEmail;
     String instructorPhone;
     String tTitle;
+    String tId;
     Repository repo = new Repository(getApplication());
     Context mContex;
     private boolean noAssessments = false;
     private List<Term> termList;
     private Term mTerm;
+    String mFormat = "MM/dd/yy";
+    SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
 
     @Override
@@ -89,7 +92,7 @@ public class CourseDetails extends AppCompatActivity {
         instructor = findViewById(R.id.editText_name);
         email = findViewById(R.id.editText_email);
         phone = findViewById(R.id.editText_phone);
-        termSpinner = findViewById(R.id.spn_termList);
+        termSpinner = findViewById(R.id.spn_termId);
         termTitle = findViewById(R.id.textView_termTitle);
         startDate = findViewById(R.id.btn_courseStart);
         endDate = findViewById(R.id.btn_courseEnd);
@@ -102,6 +105,7 @@ public class CourseDetails extends AppCompatActivity {
         instructorName = getIntent().getStringExtra("name");
         instructorEmail = getIntent().getStringExtra("email");
         instructorPhone = getIntent().getStringExtra("phone");
+        tId = getIntent().getStringExtra("term");
 
         courseId.setText(id);
         courseTitle.setText(cTitle);
@@ -109,12 +113,22 @@ public class CourseDetails extends AppCompatActivity {
         email.setText(instructorEmail);
         phone.setText(instructorPhone);
     //TODO: Set spinner value to reflect status of course
-/*
+
         termList = repo.getAllTerms();
         ArrayAdapter<Term> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termList);
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         termSpinner.setAdapter(termAdapter);
-        termSpinner.setSelection(0);
+        String sId = "";
+        do {
+            int i = 0;
+            sId = termSpinner.getItemAtPosition(i).toString();
+            if (sId.equals(tId)){
+                termSpinner.setSelection(i);
+                mTerm = repo.getTermInfo(Integer.parseInt(sId));
+                tTitle = mTerm.getTermTitle();
+                termTitle.setText(tTitle);
+            }
+        } while(!sId.equals(tId));
         termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -130,10 +144,6 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
 
- */
-
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         String currentStartDate = sdf.format(sD);
         String currentEndDate = sdf.format(eD);
         startDate.setText(currentStartDate);
@@ -188,15 +198,9 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     public void updateStartDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
         startDate.setText(sdf.format(sCalendar.getTime()));
     }
     public void updateEndDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 

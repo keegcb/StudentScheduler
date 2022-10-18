@@ -16,8 +16,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.studentscheduler.Database.DateConverter;
 import com.example.studentscheduler.Database.Repository;
@@ -37,7 +40,9 @@ public class AssessmentDetails extends AppCompatActivity {
     EditText assessmentTitle;
     TextView assCourseTitle;
     Spinner courseSpinner;
-    Spinner typeSpinner;
+    RadioGroup typeRadio;
+    RadioButton performance;
+    RadioButton objective;
     Button startDate;
     Button endDate;
 
@@ -46,13 +51,13 @@ public class AssessmentDetails extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener eDate;
     final Calendar eCalendar = Calendar.getInstance();
 
-    String id;
-    String aTitle;
-    String cId;
-    String cTitle;
-    String type;
-    long sD;
-    long eD;
+    private String id;
+    private String aTitle;
+    private String cId;
+    private String cTitle;
+    private String type;
+    private long sD;
+    private long eD;
     private Course mCourse;
     Repository repo = new Repository(getApplication());
     Context mContex;
@@ -70,7 +75,9 @@ public class AssessmentDetails extends AppCompatActivity {
         assessmentTitle = findViewById(R.id.editText_assessmentTitle);
         assCourseTitle = findViewById(R.id.textView_assessmentCourseTitle);
         courseSpinner = findViewById(R.id.spn_assessmentCourseId);
-        typeSpinner = findViewById(R.id.spn_termList);
+        typeRadio = findViewById(R.id.radioGroup_type);
+            performance = findViewById(R.id.radio_performance);
+            objective = findViewById(R.id.radio_objective);
         startDate = findViewById(R.id.btn_assStartDate);
         endDate = findViewById(R.id.btn_assEndDate);
 
@@ -88,9 +95,15 @@ public class AssessmentDetails extends AppCompatActivity {
         assessmentId.setText(id);
         assessmentTitle.setText(aTitle);
         assCourseTitle.setText(cTitle);
-    //TODO: Populate and display spinner for assessment type
+/*
+        if(type.equals("Performance")){
+            performance.setChecked(true);
+        }
+        if(type.equals("Objective")){
+            objective.setChecked(true);
+        }
 
-
+ */
         courseList = repo.getAllCourses();
         ArrayAdapter<Course> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseList);
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -185,6 +198,16 @@ public class AssessmentDetails extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_share_notify, menu);
         return true;
+    }
+
+    public void onSelectRadioButton(View view){
+        int selectedId = typeRadio.getCheckedRadioButtonId();
+        if(selectedId==performance.getId()){
+            type = "Performance";
+        }
+        if(selectedId==objective.getId()){
+            type = "Objective";
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item){

@@ -51,6 +51,8 @@ public class AssessmentAdd extends AppCompatActivity {
     private Assessment maxAssessment;
     private Course mCourse;
     private List<Course> courseList;
+    String mFormat = "MM/dd/yy";
+    SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,17 @@ public class AssessmentAdd extends AppCompatActivity {
         ArrayAdapter<Course> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseList);
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         addCourseSpinner.setAdapter(courseAdapter);
-        addCourseSpinner.setSelection(0);
+        String sId = "";
+        do {
+            int i = 0;
+            sId = addCourseSpinner.getItemAtPosition(i).toString();
+            if (sId.equals(cId)){
+                addCourseSpinner.setSelection(i);
+                mCourse = repo.getCourseInfo(Integer.parseInt(sId));
+                cTitle = mCourse.getCourseTitle();
+                assCourseTitle.setText(cTitle);
+            }
+        } while(!sId.equals(cId));
         addCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -89,9 +101,6 @@ public class AssessmentAdd extends AppCompatActivity {
 
             }
         });
-
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         String currentStartDate = sdf.format(sD);
         String currentEndDate = sdf.format(eD);
         startDate.setText(currentStartDate);
@@ -146,15 +155,9 @@ public class AssessmentAdd extends AppCompatActivity {
     }
 
     public void updateStartDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
         startDate.setText(sdf.format(sCalendar.getTime()));
     }
     public void updateEndDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 

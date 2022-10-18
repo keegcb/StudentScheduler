@@ -42,6 +42,8 @@ public class TermDetails extends AppCompatActivity {
     Repository repo = new Repository(getApplication());
     Context mContex;
     private boolean noCourse = false;
+    String mFormat = "MM/dd/yy";
+    SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +60,6 @@ public class TermDetails extends AppCompatActivity {
         sD = getIntent().getLongExtra("start", DateConverter.toTimestamp(new Date()));
         eD = getIntent().getLongExtra("end", DateConverter.toTimestamp(new Date()));
 
-
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         String currentStartDate = sdf.format(sD);
         String currentEndDate = sdf.format(eD);
         startDate.setText(currentStartDate);
@@ -118,15 +117,9 @@ public class TermDetails extends AppCompatActivity {
     }
 
     public void updateStartDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
         startDate.setText(sdf.format(sCalendar.getTime()));
     }
     public void updateEndDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
