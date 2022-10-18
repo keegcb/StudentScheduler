@@ -89,7 +89,7 @@ public class CourseDetails extends AppCompatActivity {
         instructor = findViewById(R.id.editText_name);
         email = findViewById(R.id.editText_email);
         phone = findViewById(R.id.editText_phone);
-        termSpinner = findViewById(R.id.spn_termId);
+        termSpinner = findViewById(R.id.spn_termList);
         termTitle = findViewById(R.id.textView_termTitle);
         startDate = findViewById(R.id.btn_courseStart);
         endDate = findViewById(R.id.btn_courseEnd);

@@ -17,7 +17,12 @@ public class Term {
 
     @Override
     public String toString() {
-        return this.termId+"";
+        return "Term{" +
+                "termId=" + termId +
+                ", termTitle='" + termTitle + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
     }
 
     public Term(String termTitle, Date startDate, Date endDate) {

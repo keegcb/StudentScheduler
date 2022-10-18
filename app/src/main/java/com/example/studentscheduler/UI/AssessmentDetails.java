@@ -6,10 +6,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -57,8 +54,6 @@ public class AssessmentDetails extends AppCompatActivity {
     Repository repo = new Repository(getApplication());
     Context mContex;
     private List<Course> courseList;
-    String mFormat = "MM/dd/yy";
-    SimpleDateFormat sdf;
 
 
     @Override
@@ -121,7 +116,8 @@ public class AssessmentDetails extends AppCompatActivity {
             }
         });
 
-        sdf = new SimpleDateFormat(mFormat, Locale.US);
+        String mFormat = "MM/dd/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         String currentStartDate = sdf.format(sD);
         String currentEndDate = sdf.format(eD);
         startDate.setText(currentStartDate);
@@ -130,14 +126,13 @@ public class AssessmentDetails extends AppCompatActivity {
             public void onClick(View view) {
                 Date date;
                 String info = startDate.getText().toString();
-                if(info.equals(""))info="10/10/22";
                 try{
                     sCalendar.setTime(sdf.parse(info));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(AssessmentDetails.this, sDate, sCalendar.get(Calendar.MONTH),
-                        sCalendar.get(Calendar.DAY_OF_MONTH), sCalendar.get(Calendar.YEAR)).show();
+                new DatePickerDialog(AssessmentDetails.this, sDate, sCalendar.get(Calendar.DAY_OF_MONTH),
+                        sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.YEAR)).show();
             }
         });
         sDate = new DatePickerDialog.OnDateSetListener(){
@@ -176,37 +171,16 @@ public class AssessmentDetails extends AppCompatActivity {
         };
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-
-        getMenuInflater().inflate(R.menu.menu_note_share, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
-            case android.R.id.home:
-                this.finish();
-                return true;
-            case R.id.share:
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "text from the note field");
-                sendIntent.putExtra(Intent.EXTRA_TITLE, "Message Title");
-                sendIntent.setType("text/plain");
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
-                return true;
-            case R.id.notify:
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
     public void updateStartDate() {
+        String mFormat = "MM/dd/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
+
         startDate.setText(sdf.format(sCalendar.getTime()));
     }
     public void updateEndDate() {
+        String mFormat = "MM/dd/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
+
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
