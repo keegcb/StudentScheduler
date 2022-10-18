@@ -71,7 +71,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
         if(mCourses != null){
             Course currentCourse = mCourses.get(position);
-            String title = currentCourse.getCourseTitle();
+            String title = currentCourse.getCourseId() + " " + currentCourse.getCourseTitle();
             holder.courseTitle.setText(title);
         } else {
             holder.courseTitle.setText("No Title");

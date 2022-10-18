@@ -105,8 +105,8 @@ public class AssessmentAdd extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(AssessmentAdd.this, sDate, sCalendar.get(Calendar.DAY_OF_MONTH),
-                        sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.YEAR)).show();
+                new DatePickerDialog(AssessmentAdd.this, sDate, sCalendar.get(Calendar.YEAR),
+                        sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         sDate = new DatePickerDialog.OnDateSetListener(){
@@ -130,8 +130,8 @@ public class AssessmentAdd extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(AssessmentAdd.this, eDate, eCalendar.get(Calendar.DAY_OF_MONTH),
-                        eCalendar.get(Calendar.MONTH), eCalendar.get(Calendar.YEAR)).show();
+                new DatePickerDialog(AssessmentAdd.this, eDate, eCalendar.get(Calendar.YEAR),
+                        eCalendar.get(Calendar.MONTH), eCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         eDate = new DatePickerDialog.OnDateSetListener(){

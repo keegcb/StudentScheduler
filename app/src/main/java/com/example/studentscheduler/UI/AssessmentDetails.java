@@ -57,6 +57,8 @@ public class AssessmentDetails extends AppCompatActivity {
     Repository repo = new Repository(getApplication());
     Context mContex;
     private List<Course> courseList;
+    String mFormat = "MM/dd/yy";
+    SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
 
     @Override
@@ -119,23 +121,23 @@ public class AssessmentDetails extends AppCompatActivity {
             }
         });
 
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
+
         String currentStartDate = sdf.format(sD);
         String currentEndDate = sdf.format(eD);
         startDate.setText(currentStartDate);
         startDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Date date;
+
                 String info = startDate.getText().toString();
                 try{
+                    Date date = sdf.parse(info);
                     sCalendar.setTime(sdf.parse(info));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(AssessmentDetails.this, sDate, sCalendar.get(Calendar.DAY_OF_MONTH),
-                        sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.YEAR)).show();
+                new DatePickerDialog(AssessmentDetails.this, sDate, sCalendar.get(Calendar.YEAR),
+                        sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         sDate = new DatePickerDialog.OnDateSetListener(){
@@ -147,7 +149,6 @@ public class AssessmentDetails extends AppCompatActivity {
                 updateStartDate();
             }
         };
-
         endDate.setText(currentEndDate);
         endDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,8 +160,8 @@ public class AssessmentDetails extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(AssessmentDetails.this, eDate, eCalendar.get(Calendar.DAY_OF_MONTH),
-                        eCalendar.get(Calendar.MONTH), eCalendar.get(Calendar.YEAR)).show();
+                new DatePickerDialog(AssessmentDetails.this, eDate, eCalendar.get(Calendar.YEAR),
+                        eCalendar.get(Calendar.MONTH), eCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         eDate = new DatePickerDialog.OnDateSetListener(){
@@ -172,6 +173,13 @@ public class AssessmentDetails extends AppCompatActivity {
                 updateEndDate();
             }
         };
+    }
+
+    public void updateStartDate() {
+        startDate.setText(sdf.format(sCalendar.getTime()));
+    }
+    public void updateEndDate() {
+        endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -194,22 +202,17 @@ public class AssessmentDetails extends AppCompatActivity {
                 startActivity(shareIntent);
                 return true;
             case R.id.notify:
+                String dateFromScreen = startDate.getText().toString();
+                Date mStart = null;
+                try{
+                    mStart = sdf.parse(dateFromScreen);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                //Intent intent = new Intent(AssessmentDetails.this, MyReceiver.class);
                 return true;
         }
-        return true;
-    }
-
-    public void updateStartDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
-        startDate.setText(sdf.format(sCalendar.getTime()));
-    }
-    public void updateEndDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
-        endDate.setText(sdf.format(eCalendar.getTime()));
+        return super.onOptionsItemSelected(item);
     }
 
     public void deleteAssessment(View view) {

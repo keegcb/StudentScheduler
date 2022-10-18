@@ -109,7 +109,7 @@ public class CourseDetails extends AppCompatActivity {
         email.setText(instructorEmail);
         phone.setText(instructorPhone);
     //TODO: Set spinner value to reflect status of course
-
+/*
         termList = repo.getAllTerms();
         ArrayAdapter<Term> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termList);
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -130,6 +130,8 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
 
+ */
+
         String mFormat = "MM/dd/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
         String currentStartDate = sdf.format(sD);
@@ -145,8 +147,8 @@ public class CourseDetails extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                new DatePickerDialog(CourseDetails.this, sDate, sCalendar.get(Calendar.DAY_OF_MONTH),
-                        sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.YEAR)).show();
+                new DatePickerDialog(CourseDetails.this, sDate, sCalendar.get(Calendar.YEAR),
+                        sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         sDate = new DatePickerDialog.OnDateSetListener(){
