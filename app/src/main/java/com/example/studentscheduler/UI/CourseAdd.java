@@ -128,6 +128,15 @@ public class CourseAdd extends AppCompatActivity{
             }
             i++;
         } while(!sId.equals(tId));
+        String status;
+        int j=0;
+        do {
+            status = statusSpinner.getItemAtPosition(j).toString();
+            if (status.equals(cStatus)){
+                statusSpinner.setSelection(j);
+            }
+            j++;
+        } while(!status.equals(cStatus));
         termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

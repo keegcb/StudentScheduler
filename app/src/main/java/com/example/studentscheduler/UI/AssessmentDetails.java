@@ -128,10 +128,8 @@ public class AssessmentDetails extends AppCompatActivity {
                 cTitle = mCourse.getCourseTitle();
                 assCourseTitle.setText(cTitle);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -233,6 +231,7 @@ public class AssessmentDetails extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                //TODO: Finish creating receiver
                 //Intent intent = new Intent(AssessmentDetails.this, MyReceiver.class);
                 return true;
         }
@@ -259,6 +258,14 @@ public class AssessmentDetails extends AppCompatActivity {
     }
 
     public void saveAssessment(View view){
+        /*
+        String nTitle = assessmentTitle.getText().toString();
+        int nCourseId = Integer.parseInt(courseSpinner.getSelectedItem().toString());
+        String nType = type;
+        Date nStartDate = sCalendar.getTime();
+        Date nEndDate = eCalendar.getTime();
+
+         */
 
     }
 

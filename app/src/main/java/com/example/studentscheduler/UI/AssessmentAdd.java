@@ -162,8 +162,15 @@ public class AssessmentAdd extends AppCompatActivity {
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
-    public void saveAssessment(){
-        //TODO: Get value of item from spinner to identify course in DB
+    public void saveAssessment(View view){
+        String nTitle = assessmentTitle.getText().toString();
+        int nCourseId = Integer.parseInt(addCourseSpinner.getSelectedItem().toString());
+        String nType = type;
+        Date nStartDate = sCalendar.getTime();
+        Date nEndDate = eCalendar.getTime();
 
+        Assessment nAssessment = new Assessment(nTitle, nCourseId, nType, nStartDate, nEndDate, false);
+        repo.insertAssessment(nAssessment);
+        this.finish();
     }
 }

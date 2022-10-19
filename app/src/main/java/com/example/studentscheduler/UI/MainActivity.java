@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
         repo.insertCourse(course5);
         repo.insertCourse(course6);
         repo.insertCourse(course7);
-        Assessment assessment = new Assessment("Physics Quiz", 1, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
-        Assessment assessment2 = new Assessment("Bridge Project", 1, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), true);
-        Assessment assessment3 = new Assessment("Physics Final", 1, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
-        Assessment assessment4 = new Assessment("Math Midterm", 2, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
-        Assessment assessment5 = new Assessment("Bio Paper", 3, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), true);
-        Assessment assessment6 = new Assessment("Terrarium", 3, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), true);
-        Assessment assessment7 = new Assessment("Chem Final", 4, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
+        Assessment assessment = new Assessment("Physics Quiz", 1, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), false);
+        Assessment assessment2 = new Assessment("Bridge Project", 1, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), false);
+        Assessment assessment3 = new Assessment("Physics Final", 1, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), false);
+        Assessment assessment4 = new Assessment("Math Midterm", 2, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), false);
+        Assessment assessment5 = new Assessment("Bio Paper", 3, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), false);
+        Assessment assessment6 = new Assessment("Terrarium", 3, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), false);
+        Assessment assessment7 = new Assessment("Chem Final", 4, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), false);
         repo.insertAssessment(assessment);
         repo.insertAssessment(assessment2);
         repo.insertAssessment(assessment3);
@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         repo.insertAssessment(assessment5);
         repo.insertAssessment(assessment6);
         repo.insertAssessment(assessment7);
+*/
 
- */
 
 
 
