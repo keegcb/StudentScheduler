@@ -34,7 +34,7 @@ public class Repository {
     private int cId;
     private int tId;
 
-    private static final int NUMBER_OF_THREADS =4;
+    private static final int NUMBER_OF_THREADS =8;
     static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public Repository(Application application){
@@ -285,19 +285,6 @@ public class Repository {
     public Course termCourse(int id){
         databaseExecutor.execute(()->{
             mCourse = mCourseDAO.termCourse(id);
-        });
-        try{
-            Thread.sleep(1000);
-        }
-        catch (InterruptedException e){
-            e.printStackTrace();
-        }
-        return mCourse;
-    }
-
-    public Course getIdByTitle(String courseT) {
-        databaseExecutor.execute(()->{
-            mCourse = mCourseDAO.getByTitle(courseT);
         });
         try{
             Thread.sleep(1000);

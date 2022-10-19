@@ -25,8 +25,8 @@ public class MyReceiver extends BroadcastReceiver {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
         throw new UnsupportedOperationException("Not yet implemented");
-
          */
+
     }
 /*
     private void createNotificationChannel(Context context, String CHANNEL_ID){
@@ -39,8 +39,6 @@ public class MyReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }
-
  */
-
 
 }

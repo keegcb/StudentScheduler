@@ -98,6 +98,7 @@ public class CourseDetails extends AppCompatActivity {
         endDate = findViewById(R.id.btn_courseEnd);
         courseDelete = findViewById(R.id.btn_deleteCourse);
         courseSave = findViewById(R.id.btn_saveCourse);
+        statusSpinner = findViewById(R.id.spn_courseStatus);
 
         id = getIntent().getStringExtra("id");
         cTitle = getIntent().getStringExtra("title");
@@ -119,8 +120,8 @@ public class CourseDetails extends AppCompatActivity {
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         termSpinner.setAdapter(termAdapter);
         String sId = "";
+        int i=0;
         do {
-            int i = 0;
             sId = termSpinner.getItemAtPosition(i).toString();
             if (sId.equals(tId)){
                 termSpinner.setSelection(i);
@@ -128,7 +129,17 @@ public class CourseDetails extends AppCompatActivity {
                 tTitle = mTerm.getTermTitle();
                 termTitle.setText(tTitle);
             }
+            i++;
         } while(!sId.equals(tId));
+        String status;
+        int j=0;
+        do {
+            status = statusSpinner.getItemAtPosition(j).toString();
+            if (status.equals(cStatus)){
+                statusSpinner.setSelection(j);
+            }
+            j++;
+        } while(!status.equals(cStatus));
         termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

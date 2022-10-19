@@ -23,7 +23,7 @@ import java.sql.Date;
 import java.time.Instant;
 
 
-@Database(entities = {Assessment.class, Course.class, Term.class}, version=3, exportSchema = false)
+@Database(entities = {Assessment.class, Course.class, Term.class}, version=6, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class DatabaseBuilder extends RoomDatabase {
     public abstract AssessmentDAO assessmentDAO();
@@ -46,36 +46,4 @@ public abstract class DatabaseBuilder extends RoomDatabase {
         }
         return INSTANCE;
     }
-
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase sqlDB){
-            super.onCreate(sqlDB);
-            new InputData(INSTANCE).execute();
-        }
-    };
-
-    private static class InputData extends AsyncTask<Void, Void, Void> {
-        private TermDAO termDAO;
-        private CourseDAO courseDAO;
-        private AssessmentDAO assessmentDAO;
-
-        public InputData(DatabaseBuilder db){
-            termDAO = db.termDAO();
-            courseDAO = db.courseDAO();
-            assessmentDAO = db.assessmentDAO();
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        @Override
-        protected Void doInBackground(Void... voids) {
-            termDAO.insertTerm(new Term("Fall Term", Date.from(Instant.now()), Date.from(Instant.now())));
-            termDAO.insertTerm(new Term("Winter Term", Date.from(Instant.now()), Date.from(Instant.now())));
-            termDAO.insertTerm(new Term("Spring Term", Date.from(Instant.now()), Date.from(Instant.now())));
-
-            //TODO: Add Course and Assessment Data to database
-            return null;
-        }
-    }
-
 }

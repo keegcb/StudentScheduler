@@ -77,8 +77,8 @@ public class AssessmentAdd extends AppCompatActivity {
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         addCourseSpinner.setAdapter(courseAdapter);
         String sId = "";
+        int i = 0;
         do {
-            int i = 0;
             sId = addCourseSpinner.getItemAtPosition(i).toString();
             if (sId.equals(cId)){
                 addCourseSpinner.setSelection(i);
@@ -86,6 +86,7 @@ public class AssessmentAdd extends AppCompatActivity {
                 cTitle = mCourse.getCourseTitle();
                 assCourseTitle.setText(cTitle);
             }
+            i++;
         } while(!sId.equals(cId));
         addCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

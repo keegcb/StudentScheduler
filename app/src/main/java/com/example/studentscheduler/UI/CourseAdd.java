@@ -117,8 +117,8 @@ public class CourseAdd extends AppCompatActivity{
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         termSpinner.setAdapter(termAdapter);
         String sId = "";
+        int i=0;
         do {
-            int i = 0;
             sId = termSpinner.getItemAtPosition(i).toString();
             if (sId.equals(tId)){
                 termSpinner.setSelection(i);
@@ -126,6 +126,7 @@ public class CourseAdd extends AppCompatActivity{
                 tTitle = mTerm.getTermTitle();
                 termTitle.setText(tTitle);
             }
+            i++;
         } while(!sId.equals(tId));
         termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

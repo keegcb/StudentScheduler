@@ -95,7 +95,7 @@ public class AssessmentDetails extends AppCompatActivity {
         assessmentId.setText(id);
         assessmentTitle.setText(aTitle);
         assCourseTitle.setText(cTitle);
-/*
+
         if(type.equals("Performance")){
             performance.setChecked(true);
         }
@@ -103,14 +103,14 @@ public class AssessmentDetails extends AppCompatActivity {
             objective.setChecked(true);
         }
 
- */
+
         courseList = repo.getAllCourses();
         ArrayAdapter<Course> courseAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseList);
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         courseSpinner.setAdapter(courseAdapter);
         String sId = "";
+        int i = 0;
         do {
-            int i = 0;
             sId = courseSpinner.getItemAtPosition(i).toString();
             if (sId.equals(cId)){
                 courseSpinner.setSelection(i);
@@ -118,6 +118,7 @@ public class AssessmentDetails extends AppCompatActivity {
                 cTitle = mCourse.getCourseTitle();
                 assCourseTitle.setText(cTitle);
             }
+            i++;
         } while(!sId.equals(cId));
         courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -46,8 +46,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     intent.putExtra("name", currentCourse.getInstructorName());
                     intent.putExtra("email", currentCourse.getInstructorEmail());
                     intent.putExtra("phone", currentCourse.getInstructorPhone());
-                //TODO: Decide how to display term name in course detailed view and pass term title or query title from Id
                     intent.putExtra("term", Integer.toString(currentCourse.getTermId()));
+                    intent.putExtra("status", currentCourse.getStatus());
 
                     mContext.startActivity(intent);
                 }

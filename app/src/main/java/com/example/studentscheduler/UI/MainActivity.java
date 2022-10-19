@@ -39,32 +39,44 @@ public class MainActivity extends AppCompatActivity {
         Term term3 = new Term("Spring 2023", Date.from(Instant.now()), Date.from(Instant.now()));
         Term term4 = new Term("Summer 2023", Date.from(Instant.now()), Date.from(Instant.now()));
         Term term5 = new Term("Fall 2023", Date.from(Instant.now()), Date.from(Instant.now()));
-        Course course = new Course("Physics", 1, Date.from(Instant.now()), Date.from(Instant.now()), 3, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
-        Course course2 = new Course("Math", 1, Date.from(Instant.now()), Date.from(Instant.now()), 1, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
-        Course course3 = new Course("Biology", 1, Date.from(Instant.now()), Date.from(Instant.now()), 2, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
-        Course course4 = new Course("History", 2, Date.from(Instant.now()), Date.from(Instant.now()), 4, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
-        Course course5 = new Course("Computer Science", 3, Date.from(Instant.now()), Date.from(Instant.now()), 4, "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
-        Assessment assessment = new Assessment("Quiz", 1, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
-        Assessment assessment2 = new Assessment("Midterm", 2, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
-        Assessment assessment3 = new Assessment("Final", 2, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
-        Assessment assessment4 = new Assessment("Project", 2, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), true);
-        Assessment assessment5 = new Assessment("Paper", 2, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), true);
         repo.insertTerm(term);
         repo.insertTerm(term2);
         repo.insertTerm(term3);
         repo.insertTerm(term4);
         repo.insertTerm(term5);
+        Course course = new Course("Physics", 1, Date.from(Instant.now()), Date.from(Instant.now()), "Completed", "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
+        Course course2 = new Course("Math", 1, Date.from(Instant.now()), Date.from(Instant.now()), "In Progress", "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
+        Course course3 = new Course("Biology", 1, Date.from(Instant.now()), Date.from(Instant.now()), "In Progress", "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
+        Course course4 = new Course("Chemistry", 1, Date.from(Instant.now()), Date.from(Instant.now()), "Dropped", "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
+        Course course5 = new Course("History", 2, Date.from(Instant.now()), Date.from(Instant.now()), "Plan to Take", "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
+        Course course6 = new Course("Computer Science", 3, Date.from(Instant.now()), Date.from(Instant.now()), "Plan to Take", "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
+        Course course7 = new Course("Archery", 4, Date.from(Instant.now()), Date.from(Instant.now()), "Plan to Take", "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu");
         repo.insertCourse(course);
         repo.insertCourse(course2);
         repo.insertCourse(course3);
         repo.insertCourse(course4);
         repo.insertCourse(course5);
+        repo.insertCourse(course6);
+        repo.insertCourse(course7);
+        Assessment assessment = new Assessment("Physics Quiz", 1, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
+        Assessment assessment2 = new Assessment("Bridge Project", 1, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), true);
+        Assessment assessment3 = new Assessment("Physics Final", 1, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
+        Assessment assessment4 = new Assessment("Math Midterm", 2, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
+        Assessment assessment5 = new Assessment("Bio Paper", 3, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), true);
+        Assessment assessment6 = new Assessment("Terrarium", 3, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), true);
+        Assessment assessment7 = new Assessment("Chem Final", 4, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), true);
         repo.insertAssessment(assessment);
         repo.insertAssessment(assessment2);
         repo.insertAssessment(assessment3);
         repo.insertAssessment(assessment4);
         repo.insertAssessment(assessment5);
+        repo.insertAssessment(assessment6);
+        repo.insertAssessment(assessment7);
+
  */
+
+
+
 
         Button termButton = findViewById(R.id.btn_termList);
         Button courseButton = findViewById(R.id.btn_courseList);

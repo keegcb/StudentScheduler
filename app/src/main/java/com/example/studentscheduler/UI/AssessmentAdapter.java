@@ -69,7 +69,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     public void onBindViewHolder(@NonNull AssessmentAdapter.AssessmentViewHolder holder, int position) {
         if(mAssessment != null){
             Assessment currentAssessment = mAssessment.get(position);
-            String title = currentAssessment.getTitle();
+            String title = currentAssessment.getAssessmentId() + " " + currentAssessment.getTitle();
             holder.assessmentTitle.setText(title);
         } else {
             holder.assessmentTitle.setText("No Title");

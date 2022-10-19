@@ -56,10 +56,11 @@ public class TermDetails extends AppCompatActivity {
         endDate = findViewById(R.id.btn_endDate);
 
         id = getIntent().getStringExtra("id");
-        title = getIntent().getStringExtra("name");
+        title = getIntent().getStringExtra("title");
         sD = getIntent().getLongExtra("start", DateConverter.toTimestamp(new Date()));
         eD = getIntent().getLongExtra("end", DateConverter.toTimestamp(new Date()));
 
+        termName.setText(title);
         String currentStartDate = sdf.format(sD);
         String currentEndDate = sdf.format(eD);
         startDate.setText(currentStartDate);
