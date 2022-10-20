@@ -1,8 +1,10 @@
 package com.example.studentscheduler.UI;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,9 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.studentscheduler.Database.DateConverter;
 import com.example.studentscheduler.Database.Repository;
 import com.example.studentscheduler.Entity.Assessment;
 import com.example.studentscheduler.Entity.Course;
@@ -20,6 +26,7 @@ import com.example.studentscheduler.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +39,9 @@ public class AssessmentAdd extends AppCompatActivity {
     TextView assCourseTitle;
     Spinner addCourseSpinner;
     Spinner typeSpinner;
+    RadioGroup typeRadio;
+    RadioButton performance;
+    RadioButton objective;
     Button startDate;
     Button endDate;
 
@@ -42,7 +52,7 @@ public class AssessmentAdd extends AppCompatActivity {
 
     String id;
     String aTitle;
-    String cId;
+    String cId = "1";
     String cTitle;
     String type;
     long sD;
@@ -54,6 +64,7 @@ public class AssessmentAdd extends AppCompatActivity {
     String mFormat = "MM/dd/yy";
     SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +113,8 @@ public class AssessmentAdd extends AppCompatActivity {
 
             }
         });
+        sD = DateConverter.toTimestamp(Date.from(Instant.now()));
+        eD = DateConverter.toTimestamp(Date.from(Instant.now()));
         String currentStartDate = sdf.format(sD);
         String currentEndDate = sdf.format(eD);
         startDate.setText(currentStartDate);
@@ -162,9 +175,24 @@ public class AssessmentAdd extends AppCompatActivity {
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
+    public void onSelectRadioButton(View view){
+        boolean checked = ((RadioButton) view).isChecked();
+        switch(view.getId()){
+            case R.id.radio_performance:
+                if(checked)
+                    type = "Performance";
+                break;
+            case R.id.radio_objective:
+                if(checked)
+                    type = "Objective";
+                break;
+        }
+    }
+
+//TODO: Make checks for empty fields before saving assessment
     public void saveAssessment(View view){
         String nTitle = assessmentTitle.getText().toString();
-        int nCourseId = Integer.parseInt(addCourseSpinner.getSelectedItem().toString());
+        int nCourseId = Integer.parseInt(cId);
         String nType = type;
         Date nStartDate = sCalendar.getTime();
         Date nEndDate = eCalendar.getTime();
@@ -172,5 +200,10 @@ public class AssessmentAdd extends AppCompatActivity {
         Assessment nAssessment = new Assessment(nTitle, nCourseId, nType, nStartDate, nEndDate, false);
         repo.insertAssessment(nAssessment);
         this.finish();
+    }
+
+    public void checkValues(){
+        //TODO: Add logic to check if values are populated
+        //TODO: Get value of item from spinner to identify course in DB
     }
 }

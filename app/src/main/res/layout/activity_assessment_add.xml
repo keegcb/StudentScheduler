@@ -118,14 +118,32 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Spinner
-        android:id="@+id/spn_addTermList"
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:id="@+id/radioGroup_type"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="164dp"
-        android:text="Assessment Type"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/radio_performance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onSelectRadioButton"
+            android:text="Performance" />
+
+        <RadioButton
+            android:id="@+id/radio_objective"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onSelectRadioButton"
+            android:text="Objective" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/btn_addAssStartDate"

@@ -161,7 +161,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="164dp"
         android:orientation="horizontal"
-        android:onClick="onSelectRadioButton"
         app:layout_constraintBottom_toBottomOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -170,6 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="onSelectRadioButton"
                 android:text="Performance" />
 
             <RadioButton
@@ -177,6 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="onSelectRadioButton"
                 android:text="Objective" />
     </RadioGroup>
 

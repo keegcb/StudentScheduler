@@ -200,12 +200,16 @@ public class AssessmentDetails extends AppCompatActivity {
     }
 
     public void onSelectRadioButton(View view){
-        int selectedId = typeRadio.getCheckedRadioButtonId();
-        if(selectedId==performance.getId()){
-            type = "Performance";
-        }
-        if(selectedId==objective.getId()){
-            type = "Objective";
+        boolean checked = ((RadioButton) view).isChecked();
+        switch(view.getId()){
+            case R.id.radio_performance:
+                if(checked)
+                    type = "Performance";
+                break;
+            case R.id.radio_objective:
+                if(checked)
+                    type = "Objective";
+                break;
         }
     }
 
