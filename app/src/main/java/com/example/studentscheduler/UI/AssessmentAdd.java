@@ -64,6 +64,12 @@ public class AssessmentAdd extends AppCompatActivity {
     String mFormat = "MM/dd/yy";
     SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
+    private String nTitle;
+    private int nCourseId;
+    private String nType;
+    private Date nStartDate;
+    private Date nEndDate;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,19 +197,36 @@ public class AssessmentAdd extends AppCompatActivity {
 
 //TODO: Make checks for empty fields before saving assessment
     public void saveAssessment(View view){
-        String nTitle = assessmentTitle.getText().toString();
-        int nCourseId = Integer.parseInt(cId);
-        String nType = type;
-        Date nStartDate = sCalendar.getTime();
-        Date nEndDate = eCalendar.getTime();
+        nStartDate = sCalendar.getTime();
+        nEndDate = eCalendar.getTime();
 
-        Assessment nAssessment = new Assessment(nTitle, nCourseId, nType, nStartDate, nEndDate, false);
-        repo.insertAssessment(nAssessment);
-        this.finish();
+        if (checkValues()) {
+            Assessment nAssessment = new Assessment(nTitle, nCourseId, nType, nStartDate, nEndDate, false);
+            repo.insertAssessment(nAssessment);
+            this.finish();
+        }
     }
 
-    public void checkValues(){
-        //TODO: Add logic to check if values are populated
-        //TODO: Get value of item from spinner to identify course in DB
+    public boolean checkValues(){
+        boolean values = true;
+        if (assessmentTitle.getText().toString().equals("")){
+            Toast.makeText(this, "Input a title", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            nTitle = assessmentTitle.getText().toString();
+        }
+        if (cId.equals("")){
+            Toast.makeText(this, "Select a course", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            nCourseId = Integer.parseInt(cId);
+        }
+        if (type.equals("")){
+            Toast.makeText(this, "Select a type", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            nType = type;
+        }
+        return values;
     }
 }

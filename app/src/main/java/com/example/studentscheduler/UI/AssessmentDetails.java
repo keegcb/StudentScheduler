@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.studentscheduler.Database.DateConverter;
 import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Assessment;
 import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.R;
 
@@ -64,6 +65,12 @@ public class AssessmentDetails extends AppCompatActivity {
     private List<Course> courseList;
     String mFormat = "MM/dd/yy";
     SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
+
+    private String nTitle;
+    private int nCourseId;
+    private String nType;
+    private Date nStartDate;
+    private Date nEndDate;
 
 
     @Override
@@ -262,19 +269,36 @@ public class AssessmentDetails extends AppCompatActivity {
     }
 
     public void saveAssessment(View view){
-        /*
-        String nTitle = assessmentTitle.getText().toString();
-        int nCourseId = Integer.parseInt(courseSpinner.getSelectedItem().toString());
-        String nType = type;
-        Date nStartDate = sCalendar.getTime();
-        Date nEndDate = eCalendar.getTime();
+        nStartDate = sCalendar.getTime();
+        nEndDate = eCalendar.getTime();
 
-         */
-
+        if (checkValues()) {
+            Assessment nAssessment = new Assessment(nTitle, nCourseId, nType, nStartDate, nEndDate, false);
+            repo.insertAssessment(nAssessment);
+            this.finish();
+        }
     }
 
-    public void checkValues(){
-        //TODO: Add logic to check if values are populated
-        //TODO: Get value of item from spinner to identify course in DB
+    public boolean checkValues(){
+        boolean values = true;
+        if (assessmentTitle.getText().toString().equals("")){
+            Toast.makeText(this, "Input a title", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            nTitle = assessmentTitle.getText().toString();
+        }
+        if (cId.equals("")){
+            Toast.makeText(this, "Select a course", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            nCourseId = Integer.parseInt(cId);
+        }
+        if (type.equals("")){
+            Toast.makeText(this, "Select a type", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            nType = type;
+        }
+        return values;
     }
 }
