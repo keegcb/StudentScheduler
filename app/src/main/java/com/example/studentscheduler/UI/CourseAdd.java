@@ -1,9 +1,11 @@
 package com.example.studentscheduler.UI;
 
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,14 +15,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.studentscheduler.Database.DateConverter;
 import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Assessment;
 import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -50,16 +56,20 @@ public class CourseAdd extends AppCompatActivity{
     String cTitle;
     long sD;
     long eD;
-    String cStatus;
+    String cStatus = "Plan to Take";
     String instructorName;
     String instructorEmail;
     String instructorPhone;
     String tTitle;
-    String tId;
+    String tId = "1";
     private Course maxCourse;
     private Term mTerm;
     private List<Term> termList;
+    String mFormat = "MM/dd/yy";
+    SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
+    Repository repo = new Repository(getApplication());
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +90,7 @@ public class CourseAdd extends AppCompatActivity{
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO: Add logic to show selected item in spinner
+                cStatus = statusSpinner.getSelectedItem().toString();
             }
 
             @Override
@@ -88,15 +98,6 @@ public class CourseAdd extends AppCompatActivity{
 
             }
         });
-
-        //TODO: Implement display list of terms in spinner or other object
-/*
-        termSpinner = findViewById(R.id.spn_addTermList);
-        List<Term> terms = repo.getAllTerms();
-        final TermAdapter adapter = new TermAdapter(this);
-        termSpinner.setAdapter((SpinnerAdapter) adapter);
-        adapter.setTermList(terms);
- */
 
         instructor = findViewById(R.id.editText_name);
         email = findViewById(R.id.editText_email);
@@ -152,8 +153,8 @@ public class CourseAdd extends AppCompatActivity{
             }
         });
 
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
+        sD = DateConverter.toTimestamp(Date.from(Instant.now()));
+        eD = DateConverter.toTimestamp(Date.from(Instant.now()));
         String currentStartDate = sdf.format(sD);
         String currentEndDate = sdf.format(eD);
         startDate.setText(currentStartDate);
@@ -208,19 +209,49 @@ public class CourseAdd extends AppCompatActivity{
     }
 
     public void updateStartDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
         startDate.setText(sdf.format(sCalendar.getTime()));
     }
     public void updateEndDate() {
-        String mFormat = "MM/dd/yyyy";
-        SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
-
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
-    public void saveCourse(){
-        //TODO: Save course & check if there is a course that already exists with the chosen title
+    public void saveCourse(View view){
+        Date nStartDate = sCalendar.getTime();
+        Date nEndDate = eCalendar.getTime();
+
+        if (checkValues()) {
+            Course nCourse = new Course(cTitle, Integer.parseInt(tId), nStartDate, nEndDate, cStatus, instructorName, instructorPhone, instructorEmail);
+            repo.insertCourse(nCourse);
+            this.finish();
+        }
+    }
+
+    public boolean checkValues(){
+        boolean values = true;
+        if (courseTitle.getText().toString().equals("")){
+            Toast.makeText(this, "Input a title", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            cTitle = courseTitle.getText().toString();
+        }
+        if (instructor.getText().toString().equals("")){
+            Toast.makeText(this, "Input an instructor", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            instructorName = instructor.getText().toString();
+        }
+        if (phone.getText().toString().equals("")){
+            Toast.makeText(this, "Input a phone number", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            instructorPhone = phone.getText().toString();
+        }
+        if (email.getText().toString().equals("")){
+            Toast.makeText(this, "Input an email", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            instructorEmail = email.getText().toString();
+        }
+        return values;
     }
 }

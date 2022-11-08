@@ -195,7 +195,7 @@ public class AssessmentAdd extends AppCompatActivity {
         }
     }
 
-//TODO: Make checks for empty fields before saving assessment
+
     public void saveAssessment(View view){
         nStartDate = sCalendar.getTime();
         nEndDate = eCalendar.getTime();

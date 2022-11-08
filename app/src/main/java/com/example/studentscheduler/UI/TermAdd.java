@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.studentscheduler.Database.DateConverter;
 import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
@@ -130,22 +131,15 @@ public class TermAdd extends AppCompatActivity {
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
-    //TODO: Pull selected date from date picker to include in insert statement
-    public void saveTerm(){
-        save.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (hasValues){
-                            //boolean isAdded = repo.insertTerm(termName.getText(), );
-                        }
 
-                    }
-                }
-        );
-    }
+    public void saveTerm(View view){
+        Date nStartDate = sCalendar.getTime();
+        Date nEndDate = eCalendar.getTime();
 
-    public boolean checkFields(){
-        return hasValues;
+        if (!termName.getText().toString().equals("")) {
+            Term nTerm = new Term(title, nStartDate, nEndDate);
+            repo.insertTerm(nTerm);
+            this.finish();
+        }
     }
 }

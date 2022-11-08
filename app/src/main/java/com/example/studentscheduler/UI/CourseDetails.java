@@ -81,7 +81,7 @@ public class CourseDetails extends AppCompatActivity {
         statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO: Add logic to show selected item in spinner
+
             }
 
             @Override
@@ -113,7 +113,6 @@ public class CourseDetails extends AppCompatActivity {
         instructor.setText(instructorName);
         email.setText(instructorEmail);
         phone.setText(instructorPhone);
-    //TODO: Set spinner value to reflect status of course
 
         termList = repo.getAllTerms();
         ArrayAdapter<Term> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termList);
