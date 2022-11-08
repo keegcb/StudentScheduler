@@ -33,5 +33,5 @@ public interface AssessmentDAO {
     Assessment getAssessmentInfo(int id);
 
     @Query("SELECT * FROM Assessment WHERE courseId= :id")
-    Assessment courseAssessment(int id);
+    List<Assessment> courseAssessment(int id);
 }

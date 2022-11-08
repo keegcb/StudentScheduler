@@ -16,12 +16,16 @@ import android.widget.TextView;
 
 import com.example.studentscheduler.Database.DateConverter;
 import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Assessment;
+import com.example.studentscheduler.Entity.Course;
+import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class TermDetails extends AppCompatActivity {
@@ -128,27 +132,47 @@ public class TermDetails extends AppCompatActivity {
         if (repo.termCourse(Integer.parseInt(id)) == null){
             noCourse = true;
         }
-        //TODO: Add check for associated Courses
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContex);
-        builder.setCancelable(true);
-        builder.setMessage("Are you sure you want to delete this term?");
-        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                repo.deleteTerm(repo.getTermInfo(Integer.parseInt(id)));
-            }
-        });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if(noCourse){
+            builder.setCancelable(true);
+            builder.setMessage("Are you sure you want to delete this term?");
+            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    repo.deleteTerm(repo.getTermInfo(Integer.parseInt(id)));
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else {
+            List<Course> termCourses = repo.termCourse(Integer.parseInt(id));
+            builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //OK button confirms message but does not perform action
+                }
+            });
+            builder.setMessage("Course cannot be deleted while existing courses are associated." + termCourses.toString());
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
-    public void saveTerm(View view) {
-    }
+    public void saveTerm(View view){
+        Date nStartDate = sCalendar.getTime();
+        Date nEndDate = eCalendar.getTime();
 
-    //TODO: Add functionality to save button to update existing term in Database and TermList
+        //TODO: Fix update so it updates the specific term in the DB based on ID
+        if (!termName.getText().toString().equals("")) {
+            Term nTerm = new Term(title, nStartDate, nEndDate);
+            nTerm.setTermId(Integer.parseInt(id));
+            repo.updateTerm(nTerm);
+            this.finish();
+        }
+    }
 }

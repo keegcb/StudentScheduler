@@ -250,13 +250,14 @@ public class AssessmentDetails extends AppCompatActivity {
     }
 
     public void deleteAssessment(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContex);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setCancelable(true);
             builder.setMessage("Are you sure you want to delete this assessment?");
             builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                 repo.deleteAssessment(repo.getAssessmentInfo(Integer.parseInt(id)));
+                finish();
                 }
             });
             builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -272,9 +273,11 @@ public class AssessmentDetails extends AppCompatActivity {
         nStartDate = sCalendar.getTime();
         nEndDate = eCalendar.getTime();
 
+        //TODO: Fix update so it updates the specific term in the DB based on ID
         if (checkValues()) {
             Assessment nAssessment = new Assessment(nTitle, nCourseId, nType, nStartDate, nEndDate, false);
-            repo.insertAssessment(nAssessment);
+            nAssessment.setAssessmentId(Integer.parseInt(id));
+            repo.updateAssessment(nAssessment);
             this.finish();
         }
     }

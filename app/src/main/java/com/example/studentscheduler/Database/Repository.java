@@ -269,9 +269,9 @@ public class Repository {
         return mAssessment;
     }
 
-    public Assessment courseAssessment(int id){
+    public List<Assessment> courseAssessment(int id){
         databaseExecutor.execute(()->{
-            mAssessment = mAssessmentDAO.courseAssessment(id);
+            mAllAssessments = mAssessmentDAO.courseAssessment(id);
         });
         try{
             Thread.sleep(1000);
@@ -279,12 +279,12 @@ public class Repository {
         catch (InterruptedException e){
             e.printStackTrace();
         }
-        return mAssessment;
+        return mAllAssessments;
     }
 
-    public Course termCourse(int id){
+    public List<Course> termCourse(int id){
         databaseExecutor.execute(()->{
-            mCourse = mCourseDAO.termCourse(id);
+            mAllCourses = mCourseDAO.termCourse(id);
         });
         try{
             Thread.sleep(1000);
@@ -292,6 +292,6 @@ public class Repository {
         catch (InterruptedException e){
             e.printStackTrace();
         }
-        return mCourse;
+        return mAllCourses;
     }
 }

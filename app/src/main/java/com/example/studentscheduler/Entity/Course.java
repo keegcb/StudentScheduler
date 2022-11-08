@@ -24,6 +24,10 @@ public class Course {
         return this.courseId+"";
     }
 
+    public String toString(int i){
+        return courseId + " " + courseTitle;
+    }
+
     public Course(String courseTitle, int termId, Date startDate, Date endDate, String status, String instructorName, String instructorPhone, String instructorEmail) {
         this.courseTitle = courseTitle;
         this.termId = termId;

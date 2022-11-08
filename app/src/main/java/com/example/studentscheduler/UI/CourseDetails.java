@@ -15,8 +15,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.studentscheduler.Database.Repository;
+import com.example.studentscheduler.Entity.Assessment;
+import com.example.studentscheduler.Entity.Course;
 import com.example.studentscheduler.Entity.Term;
 import com.example.studentscheduler.R;
 
@@ -214,11 +217,53 @@ public class CourseDetails extends AppCompatActivity {
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
+
+    public void saveCourse(View view){
+        Date nStartDate = sCalendar.getTime();
+        Date nEndDate = eCalendar.getTime();
+
+        //TODO: Fix update so it updates the specific term in the DB based on ID
+        if (checkValues()) {
+            Course nCourse = new Course(cTitle, Integer.parseInt(tId), nStartDate, nEndDate, cStatus, instructorName, instructorPhone, instructorEmail);
+            repo.updateCourse(nCourse);
+            this.finish();
+        }
+    }
+
+    public boolean checkValues(){
+        boolean values = true;
+        if (courseTitle.getText().toString().equals("")){
+            Toast.makeText(this, "Input a title", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            cTitle = courseTitle.getText().toString();
+        }
+        if (instructor.getText().toString().equals("")){
+            Toast.makeText(this, "Input an instructor", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            instructorName = instructor.getText().toString();
+        }
+        if (phone.getText().toString().equals("")){
+            Toast.makeText(this, "Input a phone number", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            instructorPhone = phone.getText().toString();
+        }
+        if (email.getText().toString().equals("")){
+            Toast.makeText(this, "Input an email", Toast.LENGTH_LONG).show();
+            values = false;
+        } else {
+            instructorEmail = email.getText().toString();
+        }
+        return values;
+    }
+
     public void deleteCourse(View view) {
         if (repo.courseAssessment(Integer.parseInt(id)) == null){
             noAssessments = true;
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContex);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if (noAssessments){
             builder.setCancelable(true);
             builder.setMessage("Are you sure you want to delete this course?");
@@ -226,6 +271,7 @@ public class CourseDetails extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     repo.deleteCourse(repo.getCourseInfo(Integer.parseInt(id)));
+                    finish();
                 }
             });
             builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -236,11 +282,16 @@ public class CourseDetails extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         } else {
-            builder.setMessage("Course cannot be deleted while existing assessments are associated.");
+            List<Assessment> courseAssessments = repo.courseAssessment(Integer.parseInt(id));
+            builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //OK button confirms message but does not perform action
+                }
+            });
+            builder.setMessage("Course cannot be deleted while existing assessments are associated." + courseAssessments.toString());
             AlertDialog dialog = builder.create();
             dialog.show();
         }
-        //TODO: Check if assessments are associated with Course before delete
-
     }
 }

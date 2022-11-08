@@ -33,7 +33,7 @@ public interface CourseDAO {
     int getMaxCourseId();
 
     @Query("SELECT * FROM Courses WHERE termId= :termId")
-    Course termCourse(int termId);
+    List<Course> termCourse(int termId);
 
     @Query("SELECT * FROM Courses WHERE courseTitle= :courseT")
     Course getByTitle(String courseT);

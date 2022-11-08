@@ -20,15 +20,7 @@ public class Assessment {
 
     @Override
     public String toString() {
-        return "Assessment{" +
-                "assessmentId='" + assessmentId + '\'' +
-                ", title='" + title + '\'' +
-                ", courseId=" + courseId +
-                ", type=" + type +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", alert=" + alert +
-                '}';
+        return assessmentId + " " + title;
     }
 
     public Assessment(String title, int cId, String type, Date startDate, Date endDate, boolean alert) {
