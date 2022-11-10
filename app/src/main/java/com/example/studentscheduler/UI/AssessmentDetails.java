@@ -85,8 +85,8 @@ public class AssessmentDetails extends AppCompatActivity {
         assCourseTitle = findViewById(R.id.textView_assessmentCourseTitle);
         courseSpinner = findViewById(R.id.spn_assessmentCourseId);
         typeRadio = findViewById(R.id.radioGroup_type);
-            performance = findViewById(R.id.radio_performance);
-            objective = findViewById(R.id.radio_objective);
+        performance = findViewById(R.id.radio_performance);
+        objective = findViewById(R.id.radio_objective);
         startDate = findViewById(R.id.btn_assStartDate);
         endDate = findViewById(R.id.btn_assEndDate);
 

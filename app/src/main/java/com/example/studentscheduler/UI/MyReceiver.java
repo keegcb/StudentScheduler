@@ -32,8 +32,6 @@ public class MyReceiver extends BroadcastReceiver {
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(notificationID++, note);
 
-
-
         // TODO: This method is called when the BroadcastReceiver is receiving
 
     }
