@@ -2,17 +2,22 @@ package com.example.studentscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.studentscheduler.Database.DateConverter;
 import com.example.studentscheduler.Database.Repository;
@@ -121,6 +126,11 @@ public class TermDetails extends AppCompatActivity {
         termName.setText(title);
     }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_notification, menu);
+        return true;
+    }
+
     public void updateStartDate() {
         startDate.setText(sdf.format(sCalendar.getTime()));
     }
@@ -167,7 +177,6 @@ public class TermDetails extends AppCompatActivity {
         Date nStartDate = sCalendar.getTime();
         Date nEndDate = eCalendar.getTime();
 
-        //TODO: Fix update so it updates the specific term in the DB based on ID
         if (!termName.getText().toString().equals("")) {
             Term nTerm = new Term(title, nStartDate, nEndDate);
             nTerm.setTermId(Integer.parseInt(id));
@@ -175,4 +184,40 @@ public class TermDetails extends AppCompatActivity {
             this.finish();
         }
     }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            case R.id.notification:
+                String dateFromStart = startDate.getText().toString();
+                String dateFromEnd = endDate.getText().toString();
+                Date mStart = null;
+                Date mEnd = null;
+                try {
+                    mStart = sdf.parse(dateFromStart);
+                    mEnd = sdf.parse(dateFromEnd);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Long sTrigger = mStart.getTime();
+                Intent sIntent = new Intent(TermDetails.this, MyReceiver.class);
+                sIntent.putExtra("key", "Your assessment [" + id + ": " + title + "] starts today.");
+                PendingIntent sSender = PendingIntent.getBroadcast(TermDetails.this, MainActivity.numAlert++, sIntent, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager sAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                sAlarmManager.set(AlarmManager.RTC_WAKEUP, sTrigger, sSender);
+
+                Long eTrigger = mEnd.getTime();
+                Intent eIntent = new Intent(TermDetails.this, MyReceiver.class);
+                eIntent.putExtra("key", "Your assessment [" + id + " " + title + "] ends today.");
+                PendingIntent eSender = PendingIntent.getBroadcast(TermDetails.this, MainActivity.numAlert++, eIntent, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager eAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                eAlarmManager.set(AlarmManager.RTC_WAKEUP, eTrigger, eSender);
+                Toast.makeText(this, "Notifications have been set for this item.", Toast.LENGTH_LONG).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

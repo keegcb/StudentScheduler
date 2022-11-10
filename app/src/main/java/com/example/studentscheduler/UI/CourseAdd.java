@@ -62,6 +62,7 @@ public class CourseAdd extends AppCompatActivity{
     String instructorPhone;
     String tTitle;
     String tId = "1";
+    String notes;
     private Course maxCourse;
     private Term mTerm;
     private List<Term> termList;
@@ -220,7 +221,7 @@ public class CourseAdd extends AppCompatActivity{
         Date nEndDate = eCalendar.getTime();
 
         if (checkValues()) {
-            Course nCourse = new Course(cTitle, Integer.parseInt(tId), nStartDate, nEndDate, cStatus, instructorName, instructorPhone, instructorEmail);
+            Course nCourse = new Course(cTitle, Integer.parseInt(tId), nStartDate, nEndDate, cStatus, instructorName, instructorPhone, instructorEmail, notes);
             repo.insertCourse(nCourse);
             this.finish();
         }

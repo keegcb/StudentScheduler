@@ -204,7 +204,7 @@ public class AssessmentDetails extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_share_notify, menu);
+        getMenuInflater().inflate(R.menu.menu_notification, menu);
         return true;
     }
 
@@ -227,30 +227,31 @@ public class AssessmentDetails extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
-            case R.id.share:
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Text from note field");
-                sendIntent.putExtra(Intent.EXTRA_TITLE, "Message Title");
-                sendIntent.setType("text/plain");
-                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                startActivity(shareIntent);
-                return true;
-            case R.id.notify:
-                String dateFromScreen = startDate.getText().toString();
+            case R.id.notification:
+                String dateFromStart = startDate.getText().toString();
+                String dateFromEnd = endDate.getText().toString();
                 Date mStart = null;
+                Date mEnd = null;
                 try{
-                    mStart = sdf.parse(dateFromScreen);
+                    mStart = sdf.parse(dateFromStart);
+                    mEnd = sdf.parse(dateFromEnd);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                //TODO: Finish creating receiver
-                Long trigger = mStart.getTime();
-                Intent intent = new Intent(AssessmentDetails.this, MyReceiver.class);
-                intent.putExtra("key", "Your course [" + id + " " + aTitle + "] starts today.");
-                PendingIntent sender = PendingIntent.getBroadcast(AssessmentDetails.this, MainActivity.numAlert++, intent, 0);
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+                Long sTrigger = mStart.getTime();
+                Intent sIntent = new Intent(AssessmentDetails.this, MyReceiver.class);
+                sIntent.putExtra("key", "Your assessment [" + id + ": " + aTitle + "] starts today.");
+                PendingIntent sSender = PendingIntent.getBroadcast(AssessmentDetails.this, MainActivity.numAlert++, sIntent, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager sAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                sAlarmManager.set(AlarmManager.RTC_WAKEUP, sTrigger, sSender);
+
+                Long eTrigger = mEnd.getTime();
+                Intent eIntent = new Intent(AssessmentDetails.this, MyReceiver.class);
+                eIntent.putExtra("key", "Your assessment [" + id + " " + aTitle + "] ends today.");
+                PendingIntent eSender = PendingIntent.getBroadcast(AssessmentDetails.this, MainActivity.numAlert++, eIntent, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager eAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                eAlarmManager.set(AlarmManager.RTC_WAKEUP, eTrigger, eSender);
+                Toast.makeText(this, "Notifications have been set for this item.", Toast.LENGTH_LONG).show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -280,7 +281,6 @@ public class AssessmentDetails extends AppCompatActivity {
         nStartDate = sCalendar.getTime();
         nEndDate = eCalendar.getTime();
 
-        //TODO: Fix update so it updates the specific term in the DB based on ID
         if (checkValues()) {
             Assessment nAssessment = new Assessment(nTitle, nCourseId, nType, nStartDate, nEndDate, false);
             nAssessment.setAssessmentId(Integer.parseInt(id));

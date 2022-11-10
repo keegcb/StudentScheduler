@@ -2,11 +2,16 @@ package com.example.studentscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,6 +65,7 @@ public class CourseDetails extends AppCompatActivity {
     String instructorPhone;
     String tTitle;
     String tId;
+    String notes;
     Repository repo = new Repository(getApplication());
     Context mContex;
     private boolean noAssessments = false;
@@ -110,6 +116,7 @@ public class CourseDetails extends AppCompatActivity {
         instructorEmail = getIntent().getStringExtra("email");
         instructorPhone = getIntent().getStringExtra("phone");
         tId = getIntent().getStringExtra("term");
+        notes = getIntent().getStringExtra("notes");
 
         courseId.setText(id);
         courseTitle.setText(cTitle);
@@ -122,26 +129,26 @@ public class CourseDetails extends AppCompatActivity {
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         termSpinner.setAdapter(termAdapter);
         String sId = "";
-        int i=0;
+        int i = 0;
         do {
             sId = termSpinner.getItemAtPosition(i).toString();
-            if (sId.equals(tId)){
+            if (sId.equals(tId)) {
                 termSpinner.setSelection(i);
                 mTerm = repo.getTermInfo(Integer.parseInt(sId));
                 tTitle = mTerm.getTermTitle();
                 termTitle.setText(tTitle);
             }
             i++;
-        } while(!sId.equals(tId));
+        } while (!sId.equals(tId));
         String status;
-        int j=0;
+        int j = 0;
         do {
             status = statusSpinner.getItemAtPosition(j).toString();
-            if (status.equals(cStatus)){
+            if (status.equals(cStatus)) {
                 statusSpinner.setSelection(j);
             }
             j++;
-        } while(!status.equals(cStatus));
+        } while (!status.equals(cStatus));
         termSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -165,7 +172,7 @@ public class CourseDetails extends AppCompatActivity {
             public void onClick(View view) {
                 Date date;
                 String info = startDate.getText().toString();
-                try{
+                try {
                     sCalendar.setTime(sdf.parse(info));
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -174,9 +181,9 @@ public class CourseDetails extends AppCompatActivity {
                         sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        sDate = new DatePickerDialog.OnDateSetListener(){
+        sDate = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day){
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 sCalendar.set(Calendar.YEAR, year);
                 sCalendar.set(Calendar.MONTH, month);
                 sCalendar.set(Calendar.DAY_OF_MONTH, day);
@@ -190,7 +197,7 @@ public class CourseDetails extends AppCompatActivity {
             public void onClick(View view) {
                 Date date;
                 String info = endDate.getText().toString();
-                try{
+                try {
                     eCalendar.setTime(sdf.parse(info));
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -199,9 +206,9 @@ public class CourseDetails extends AppCompatActivity {
                         eCalendar.get(Calendar.MONTH), eCalendar.get(Calendar.YEAR)).show();
             }
         });
-        eDate = new DatePickerDialog.OnDateSetListener(){
+        eDate = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day){
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 eCalendar.set(Calendar.YEAR, year);
                 eCalendar.set(Calendar.MONTH, month);
                 eCalendar.set(Calendar.DAY_OF_MONTH, day);
@@ -210,47 +217,53 @@ public class CourseDetails extends AppCompatActivity {
         };
     }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_share_notify, menu);
+        return true;
+    }
+
     public void updateStartDate() {
         startDate.setText(sdf.format(sCalendar.getTime()));
     }
+
     public void updateEndDate() {
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
 
-    public void saveCourse(View view){
+    public void saveCourse(View view) {
         Date nStartDate = sCalendar.getTime();
         Date nEndDate = eCalendar.getTime();
 
-        //TODO: Fix update so it updates the specific term in the DB based on ID
         if (checkValues()) {
-            Course nCourse = new Course(cTitle, Integer.parseInt(tId), nStartDate, nEndDate, cStatus, instructorName, instructorPhone, instructorEmail);
+            Course nCourse = new Course(cTitle, Integer.parseInt(tId), nStartDate, nEndDate, cStatus, instructorName, instructorPhone, instructorEmail, notes);
+            nCourse.setCourseId(Integer.parseInt(id));
             repo.updateCourse(nCourse);
             this.finish();
         }
     }
 
-    public boolean checkValues(){
+    public boolean checkValues() {
         boolean values = true;
-        if (courseTitle.getText().toString().equals("")){
+        if (courseTitle.getText().toString().equals("")) {
             Toast.makeText(this, "Input a title", Toast.LENGTH_LONG).show();
             values = false;
         } else {
             cTitle = courseTitle.getText().toString();
         }
-        if (instructor.getText().toString().equals("")){
+        if (instructor.getText().toString().equals("")) {
             Toast.makeText(this, "Input an instructor", Toast.LENGTH_LONG).show();
             values = false;
         } else {
             instructorName = instructor.getText().toString();
         }
-        if (phone.getText().toString().equals("")){
+        if (phone.getText().toString().equals("")) {
             Toast.makeText(this, "Input a phone number", Toast.LENGTH_LONG).show();
             values = false;
         } else {
             instructorPhone = phone.getText().toString();
         }
-        if (email.getText().toString().equals("")){
+        if (email.getText().toString().equals("")) {
             Toast.makeText(this, "Input an email", Toast.LENGTH_LONG).show();
             values = false;
         } else {
@@ -260,11 +273,11 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     public void deleteCourse(View view) {
-        if (repo.courseAssessment(Integer.parseInt(id)) == null){
+        if (repo.courseAssessment(Integer.parseInt(id)) == null) {
             noAssessments = true;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        if (noAssessments){
+        if (noAssessments) {
             builder.setCancelable(true);
             builder.setMessage("Are you sure you want to delete this course?");
             builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
@@ -294,4 +307,73 @@ public class CourseDetails extends AppCompatActivity {
             dialog.show();
         }
     }
+
+    private void showAddItemDialog(Context c) {
+        EditText editNotes = new EditText(c);
+        editNotes.setText(notes);
+        AlertDialog dialog = new AlertDialog.Builder(c)
+                .setTitle("Add a new task")
+                .setMessage("What do you want to do next?")
+                .setView(editNotes)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String task = String.valueOf(editNotes.getText());
+                        notes = task;
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
+    }
+
+    //TODO: customize sharing feature
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            case R.id.notes:
+                showAddItemDialog(this);
+                return true;
+            case R.id.share:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Text from note field");
+                sendIntent.putExtra(Intent.EXTRA_TITLE, "Message Title");
+                sendIntent.setType("text/plain");
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
+                return true;
+            case R.id.notify:
+                String dateFromStart = startDate.getText().toString();
+                String dateFromEnd = endDate.getText().toString();
+                Date mStart = null;
+                Date mEnd = null;
+                try {
+                    mStart = sdf.parse(dateFromStart);
+                    mEnd = sdf.parse(dateFromEnd);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Long sTrigger = mStart.getTime();
+                Intent sIntent = new Intent(CourseDetails.this, MyReceiver.class);
+                sIntent.putExtra("key", "Your assessment [" + id + ": " + cTitle + "] starts today.");
+                PendingIntent sSender = PendingIntent.getBroadcast(CourseDetails.this, MainActivity.numAlert++, sIntent, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager sAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                sAlarmManager.set(AlarmManager.RTC_WAKEUP, sTrigger, sSender);
+
+                Long eTrigger = mEnd.getTime();
+                Intent eIntent = new Intent(CourseDetails.this, MyReceiver.class);
+                eIntent.putExtra("key", "Your assessment [" + id + " " + cTitle + "] ends today.");
+                PendingIntent eSender = PendingIntent.getBroadcast(CourseDetails.this, MainActivity.numAlert++, eIntent, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager eAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                eAlarmManager.set(AlarmManager.RTC_WAKEUP, eTrigger, eSender);
+                Toast.makeText(this, "Notifications have been set for this item.", Toast.LENGTH_LONG).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

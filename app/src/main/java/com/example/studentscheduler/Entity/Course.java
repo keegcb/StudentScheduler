@@ -18,6 +18,7 @@ public class Course {
     private String instructorPhone;
     private String instructorEmail;
     private int termId;
+    private String notes;
 
     @Override
     public String toString() {
@@ -28,7 +29,7 @@ public class Course {
         return courseId + " " + courseTitle;
     }
 
-    public Course(String courseTitle, int termId, Date startDate, Date endDate, String status, String instructorName, String instructorPhone, String instructorEmail) {
+    public Course(String courseTitle, int termId, Date startDate, Date endDate, String status, String instructorName, String instructorPhone, String instructorEmail, String notes) {
         this.courseTitle = courseTitle;
         this.termId = termId;
         this.startDate = startDate;
@@ -37,6 +38,7 @@ public class Course {
         this.instructorName = instructorName;
         this.instructorPhone = instructorPhone;
         this.instructorEmail = instructorEmail;
+        this.notes = notes;
     }
 
     public Course(){}
@@ -77,6 +79,8 @@ public class Course {
         this.termId = termId;
     }
 
+    public void setNotes(String notes){ this.notes = notes; }
+
     public int getCourseId() {
         return courseId;
     }
@@ -112,4 +116,6 @@ public class Course {
     public int getTermId() {
         return termId;
     }
+
+    public String getNotes() {return notes;}
 }
