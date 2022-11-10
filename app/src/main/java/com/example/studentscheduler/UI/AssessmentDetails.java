@@ -2,8 +2,10 @@ package com.example.studentscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -243,7 +245,12 @@ public class AssessmentDetails extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 //TODO: Finish creating receiver
-                //Intent intent = new Intent(AssessmentDetails.this, MyReceiver.class);
+                Long trigger = mStart.getTime();
+                Intent intent = new Intent(AssessmentDetails.this, MyReceiver.class);
+                intent.putExtra("key", "Your course [" + id + " " + aTitle + "] starts today.");
+                PendingIntent sender = PendingIntent.getBroadcast(AssessmentDetails.this, MainActivity.numAlert++, intent, 0);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -24,6 +24,7 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 
 public class MainActivity extends AppCompatActivity {
+    public static int numAlert;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
