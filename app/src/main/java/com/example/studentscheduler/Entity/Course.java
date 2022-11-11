@@ -25,10 +25,6 @@ public class Course {
         return this.courseId+"";
     }
 
-    public String toString(int i){
-        return courseId + " " + courseTitle;
-    }
-
     public Course(String courseTitle, int termId, Date startDate, Date endDate, String status, String instructorName, String instructorPhone, String instructorEmail, String notes) {
         this.courseTitle = courseTitle;
         this.termId = termId;
@@ -40,8 +36,6 @@ public class Course {
         this.instructorEmail = instructorEmail;
         this.notes = notes;
     }
-
-    public Course(){}
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;

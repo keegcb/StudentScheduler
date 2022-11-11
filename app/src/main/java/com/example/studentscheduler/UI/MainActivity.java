@@ -32,7 +32,6 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     public static int numAlert;
-    Repository repo = new Repository(getApplication());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +56,8 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case android.R.id.home:
-                this.finish();
-                return true;
             case R.id.data:
+                Repository repo = new Repository(getApplication());
                 Term term = new Term("Fall 2022", Date.from(Instant.now()), Date.from(Instant.now()));
                 Term term2 = new Term("Winter 2022", Date.from(Instant.now()), Date.from(Instant.now()));
                 Term term3 = new Term("Spring 2023", Date.from(Instant.now()), Date.from(Instant.now()));

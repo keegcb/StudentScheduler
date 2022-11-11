@@ -49,6 +49,7 @@ public class CourseDetails extends AppCompatActivity {
     Spinner termSpinner;
     Button courseDelete;
     Button courseSave;
+    EditText courseNotes;
 
     DatePickerDialog.OnDateSetListener sDate;
     final Calendar sCalendar = Calendar.getInstance();
@@ -108,6 +109,7 @@ public class CourseDetails extends AppCompatActivity {
         courseDelete = findViewById(R.id.btn_deleteCourse);
         courseSave = findViewById(R.id.btn_saveCourse);
         statusSpinner = findViewById(R.id.spn_courseStatus);
+        courseNotes = findViewById(R.id.editText_notes);
 
         id = getIntent().getStringExtra("id");
         cTitle = getIntent().getStringExtra("title");
@@ -123,6 +125,7 @@ public class CourseDetails extends AppCompatActivity {
         instructor.setText(instructorName);
         email.setText(instructorEmail);
         phone.setText(instructorPhone);
+        courseNotes.setText(notes);
 
         termList = repo.getAllTerms();
         ArrayAdapter<Term> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termList);
@@ -234,6 +237,7 @@ public class CourseDetails extends AppCompatActivity {
     public void saveCourse(View view) {
         Date nStartDate = sCalendar.getTime();
         Date nEndDate = eCalendar.getTime();
+        notes = courseNotes.getText().toString();
 
         if (checkValues()) {
             Course nCourse = new Course(cTitle, Integer.parseInt(tId), nStartDate, nEndDate, cStatus, instructorName, instructorPhone, instructorEmail, notes);
@@ -308,40 +312,17 @@ public class CourseDetails extends AppCompatActivity {
         }
     }
 
-    private void showAddItemDialog(Context c) {
-        EditText editNotes = new EditText(c);
-        editNotes.setText(notes);
-        AlertDialog dialog = new AlertDialog.Builder(c)
-                .setTitle("Add a new task")
-                .setMessage("What do you want to do next?")
-                .setView(editNotes)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String task = String.valueOf(editNotes.getText());
-                        notes = task;
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .create();
-        dialog.show();
-    }
-
-    //TODO: customize sharing feature
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
                 return true;
-            case R.id.notes:
-                showAddItemDialog(this);
-                return true;
             case R.id.share:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Text from note field");
-                sendIntent.putExtra(Intent.EXTRA_TITLE, "Message Title");
+                sendIntent.putExtra(Intent.EXTRA_TITLE, "Check Out: " + id + " " + cTitle);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, notes);
                 sendIntent.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(sendIntent, null);
                 startActivity(shareIntent);
