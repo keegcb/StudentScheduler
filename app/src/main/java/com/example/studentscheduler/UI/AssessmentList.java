@@ -35,15 +35,19 @@ public class AssessmentList extends AppCompatActivity {
         adapter.setAssessmentList(assessments);
     }
 
-    public boolean onCreateOptionMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_assessmentlist, menu);
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_refresh, menu);
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
+                return true;
+            case R.id.refresh:
+                finish();
+                startActivity(getIntent());
                 return true;
         }
         return super.onOptionsItemSelected(item);

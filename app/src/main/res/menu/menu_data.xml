@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Generate Data"
-        android:id="@+id/data"/>
+    <item android:title="Generate Term Data"
+        android:id="@+id/term_data"/>
+    <item android:title="Generate Course Data"
+        android:id="@+id/course_data"/>
+    <item android:title="Generate Assessment Data"
+        android:id="@+id/assessment_data"/>
+
 </menu>

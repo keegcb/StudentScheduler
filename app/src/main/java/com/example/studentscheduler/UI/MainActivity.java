@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean onOptionsItemSelected(MenuItem item){
+        Repository repo = new Repository(getApplication());
         switch (item.getItemId()){
-            case R.id.data:
-                Repository repo = new Repository(getApplication());
+            case R.id.term_data:
                 Term term = new Term("Fall 2022", Date.from(Instant.now()), Date.from(Instant.now()));
                 Term term2 = new Term("Winter 2022", Date.from(Instant.now()), Date.from(Instant.now()));
                 Term term3 = new Term("Spring 2023", Date.from(Instant.now()), Date.from(Instant.now()));
@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 repo.insertTerm(term3);
                 repo.insertTerm(term4);
                 repo.insertTerm(term5);
+                return true;
+            case R.id.course_data:
                 Course course = new Course("Physics", 1, Date.from(Instant.now()), Date.from(Instant.now()), "Completed", "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu","");
                 Course course2 = new Course("Math", 1, Date.from(Instant.now()), Date.from(Instant.now()), "In Progress", "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu","");
                 Course course3 = new Course("Biology", 1, Date.from(Instant.now()), Date.from(Instant.now()), "In Progress", "Dr. Bromeo", "616-434-1129", "w.bromeo@wgu.edu","");
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 repo.insertCourse(course5);
                 repo.insertCourse(course6);
                 repo.insertCourse(course7);
+            case R.id.assessment_data:
                 Assessment assessment = new Assessment("Physics Quiz", 1, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), false);
                 Assessment assessment2 = new Assessment("Bridge Project", 1, "Performance", Date.from(Instant.now()), Date.from(Instant.now()), false);
                 Assessment assessment3 = new Assessment("Physics Final", 1, "Objective", Date.from(Instant.now()), Date.from(Instant.now()), false);

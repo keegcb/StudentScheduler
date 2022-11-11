@@ -39,13 +39,22 @@ public class TermList extends AppCompatActivity {
 
     }
 
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_refresh, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
                 return true;
-            }
-            return super.onOptionsItemSelected(item);
+            case R.id.refresh:
+                finish();
+                startActivity(getIntent());
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void BeginTermActivity(View view) {

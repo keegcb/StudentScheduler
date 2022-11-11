@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2485" />
+        <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2485" />
+        <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/drawable/ic_baseline_refresh_24.xml" value="0.2485" />
+        <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2485" />
+        <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/drawable/refresh.xml" value="0.2475" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_assessment_add.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_assessment_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/layout/activity_assessment_list.xml" value="0.36666666666666664" />
@@ -32,6 +37,7 @@
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/menu/menu_data.xml" value="0.365625" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/menu/menu_note_share.xml" value="0.365625" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/menu/menu_notification.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/menu/menu_refresh.xml" value="0.25" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/menu/menu_share_notify.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/menu/menu_termlist.xml" value="0.365625" />
         <entry key="..\:/Users/keegan.brewster/AndroidStudioProjects/StudentScheduler/app/src/main/res/menu/notification.xml" value="0.11458333333333333" />
