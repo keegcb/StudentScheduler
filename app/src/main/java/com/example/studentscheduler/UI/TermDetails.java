@@ -139,7 +139,8 @@ public class TermDetails extends AppCompatActivity {
     }
 
     public void deleteTerm(View view){
-        if (repo.termCourse(Integer.parseInt(id)) == null){
+        List<Course> tCourse = repo.termCourse(Integer.parseInt(id));
+        if (tCourse.isEmpty()){
             noCourse = true;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

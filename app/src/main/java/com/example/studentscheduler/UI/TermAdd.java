@@ -55,7 +55,7 @@ public class TermAdd extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_term_details);
+        setContentView(R.layout.activity_term_add);
 
         termID = findViewById(R.id.editText_termID);
         termName = findViewById(R.id.editText_termName);

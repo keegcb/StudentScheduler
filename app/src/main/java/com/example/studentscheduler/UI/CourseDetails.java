@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.studentscheduler.Database.DateConverter;
 import com.example.studentscheduler.Database.Repository;
 import com.example.studentscheduler.Entity.Assessment;
 import com.example.studentscheduler.Entity.Course;
@@ -119,6 +120,8 @@ public class CourseDetails extends AppCompatActivity {
         instructorPhone = getIntent().getStringExtra("phone");
         tId = getIntent().getStringExtra("term");
         notes = getIntent().getStringExtra("notes");
+        sD = getIntent().getLongExtra("start", DateConverter.toTimestamp(new Date()));
+        eD = getIntent().getLongExtra("end", DateConverter.toTimestamp(new Date()));
 
         courseId.setText(id);
         courseTitle.setText(cTitle);
@@ -277,7 +280,8 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     public void deleteCourse(View view) {
-        if (repo.courseAssessment(Integer.parseInt(id)) == null) {
+        List<Assessment> cAssessments = repo.courseAssessment(Integer.parseInt(id));
+        if (cAssessments.isEmpty()) {
             noAssessments = true;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
