@@ -138,6 +138,7 @@ public class TermAdd extends AppCompatActivity {
 
         if (!termName.getText().toString().equals("")) {
             Term nTerm = new Term(title, nStartDate, nEndDate);
+            nTerm.setTermId(Integer.parseInt(id));
             repo.insertTerm(nTerm);
             this.finish();
         }

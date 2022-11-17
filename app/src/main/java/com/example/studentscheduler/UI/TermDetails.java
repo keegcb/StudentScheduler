@@ -38,6 +38,7 @@ public class TermDetails extends AppCompatActivity {
     EditText termName;
     Button startDate;
     Button endDate;
+    TextView courses;
 
     DatePickerDialog.OnDateSetListener sDate;
     final Calendar sCalendar = Calendar.getInstance();
@@ -54,6 +55,7 @@ public class TermDetails extends AppCompatActivity {
     String mFormat = "MM/dd/yy";
     SimpleDateFormat sdf = new SimpleDateFormat(mFormat, Locale.US);
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,7 @@ public class TermDetails extends AppCompatActivity {
         termName = findViewById(R.id.editText_termName);
         startDate = findViewById(R.id.btn_startDate);
         endDate = findViewById(R.id.btn_endDate);
+        courses = findViewById(R.id.textView_termCourses);
 
         id = getIntent().getStringExtra("id");
         title = getIntent().getStringExtra("title");
@@ -124,11 +127,23 @@ public class TermDetails extends AppCompatActivity {
 
         termID.setText(id);
         termName.setText(title);
+        showAssociatedCourses();
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_notification, menu);
         return true;
+    }
+
+    public void showAssociatedCourses(){
+        List<Course> tCourse = repo.termCourse(Integer.parseInt(id));
+        String cList = "";
+        for (int n=0; n < tCourse.size(); n++){
+            Course currentCourse = tCourse.get(n);
+            String cCourse = currentCourse.getCourseId() + " " + currentCourse.getCourseTitle() + "\n";
+            cList = cList + cCourse;
+        }
+        courses.setText(cList);
     }
 
     public void updateStartDate() {
@@ -151,6 +166,7 @@ public class TermDetails extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     repo.deleteTerm(repo.getTermInfo(Integer.parseInt(id)));
+                    finish();
                 }
             });
             builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -168,7 +184,7 @@ public class TermDetails extends AppCompatActivity {
                     //OK button confirms message but does not perform action
                 }
             });
-            builder.setMessage("Course cannot be deleted while existing courses are associated." + termCourses.toString());
+            builder.setMessage("Term cannot be deleted while existing courses are associated." + termCourses.toString());
             AlertDialog dialog = builder.create();
             dialog.show();
         }

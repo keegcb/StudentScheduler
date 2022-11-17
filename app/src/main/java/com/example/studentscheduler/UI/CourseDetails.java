@@ -51,6 +51,7 @@ public class CourseDetails extends AppCompatActivity {
     Button courseDelete;
     Button courseSave;
     EditText courseNotes;
+    TextView assessments;
 
     DatePickerDialog.OnDateSetListener sDate;
     final Calendar sCalendar = Calendar.getInstance();
@@ -111,6 +112,7 @@ public class CourseDetails extends AppCompatActivity {
         courseSave = findViewById(R.id.btn_saveCourse);
         statusSpinner = findViewById(R.id.spn_courseStatus);
         courseNotes = findViewById(R.id.editText_notes);
+        assessments = findViewById(R.id.textView_courseAssessments);
 
         id = getIntent().getStringExtra("id");
         cTitle = getIntent().getStringExtra("title");
@@ -130,6 +132,7 @@ public class CourseDetails extends AppCompatActivity {
         phone.setText(instructorPhone);
         courseNotes.setText(notes);
 
+        showAssociatedCourses();
         termList = repo.getAllTerms();
         ArrayAdapter<Term> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termList);
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -236,6 +239,16 @@ public class CourseDetails extends AppCompatActivity {
         endDate.setText(sdf.format(eCalendar.getTime()));
     }
 
+    public void showAssociatedCourses(){
+        List<Assessment> cAssessment = repo.courseAssessment(Integer.parseInt(id));
+        String aList = "";
+        for (int n=0; n < cAssessment.size(); n++){
+            Assessment currentAssessment = cAssessment.get(n);
+            String aAssessment = currentAssessment.getAssessmentId() + " " + currentAssessment.getTitle() + "\n";
+            aList = aList + aAssessment;
+        }
+        assessments.setText(aList);
+    }
 
     public void saveCourse(View view) {
         Date nStartDate = sCalendar.getTime();
@@ -326,6 +339,7 @@ public class CourseDetails extends AppCompatActivity {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TITLE, "Check Out: " + id + " " + cTitle);
+                notes = courseNotes.getText().toString();
                 sendIntent.putExtra(Intent.EXTRA_TEXT, notes);
                 sendIntent.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(sendIntent, null);

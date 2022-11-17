@@ -237,11 +237,10 @@
 
     <EditText
         android:id="@+id/editText_notes"
-        android:layout_width="0dp"
-        android:layout_height="125dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="210dp"
+        android:layout_height="136dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:background="#F4F4F4"
         android:ems="10"
@@ -251,9 +250,21 @@
         android:textAlignment="viewStart"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_saveCourse"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintEnd_toEndOf="@+id/spn_termId"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTerm3" />
+
+    <TextView
+        android:id="@+id/textView_courseAssessments"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#F4F4F4F4"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_notes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editText_notes"
+        app:layout_constraintTop_toTopOf="@+id/editText_notes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
