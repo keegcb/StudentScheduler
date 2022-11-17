@@ -345,14 +345,11 @@ public class CourseDetails extends AppCompatActivity {
                 Intent shareIntent = Intent.createChooser(sendIntent, null);
                 startActivity(shareIntent);
                 return true;
-            case R.id.notify:
+            case R.id.start_notify:
                 String dateFromStart = startDate.getText().toString();
-                String dateFromEnd = endDate.getText().toString();
                 Date mStart = null;
-                Date mEnd = null;
                 try {
                     mStart = sdf.parse(dateFromStart);
-                    mEnd = sdf.parse(dateFromEnd);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -362,7 +359,15 @@ public class CourseDetails extends AppCompatActivity {
                 PendingIntent sSender = PendingIntent.getBroadcast(CourseDetails.this, MainActivity.numAlert++, sIntent, PendingIntent.FLAG_IMMUTABLE);
                 AlarmManager sAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 sAlarmManager.set(AlarmManager.RTC_WAKEUP, sTrigger, sSender);
-
+                return true;
+            case R.id.end_notify:
+                String dateFromEnd = endDate.getText().toString();
+                Date mEnd = null;
+                try {
+                    mEnd = sdf.parse(dateFromEnd);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 Long eTrigger = mEnd.getTime();
                 Intent eIntent = new Intent(CourseDetails.this, MyReceiver.class);
                 eIntent.putExtra("key", "Your assessment [" + id + " " + cTitle + "] ends today.");

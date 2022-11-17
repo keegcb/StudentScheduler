@@ -4,7 +4,9 @@
 
     <item android:title="Share"
         android:id="@+id/share"/>
-    <item android:title="Notification"
-        android:id="@+id/notify"/>
+    <item android:title="Notify Start Date"
+        android:id="@+id/start_notify"/>
+    <item android:title="Notify End Date"
+        android:id="@+id/end_notify"/>
 
 </menu>

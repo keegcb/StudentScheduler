@@ -227,14 +227,11 @@ public class AssessmentDetails extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
-            case R.id.notification:
+            case R.id.start_notify:
                 String dateFromStart = startDate.getText().toString();
-                String dateFromEnd = endDate.getText().toString();
                 Date mStart = null;
-                Date mEnd = null;
                 try{
                     mStart = sdf.parse(dateFromStart);
-                    mEnd = sdf.parse(dateFromEnd);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -244,7 +241,15 @@ public class AssessmentDetails extends AppCompatActivity {
                 PendingIntent sSender = PendingIntent.getBroadcast(AssessmentDetails.this, MainActivity.numAlert++, sIntent, PendingIntent.FLAG_IMMUTABLE);
                 AlarmManager sAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 sAlarmManager.set(AlarmManager.RTC_WAKEUP, sTrigger, sSender);
-
+                return true;
+            case R.id.end_notify:
+                String dateFromEnd = endDate.getText().toString();
+                Date mEnd = null;
+                try{
+                    mEnd = sdf.parse(dateFromEnd);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 Long eTrigger = mEnd.getTime();
                 Intent eIntent = new Intent(AssessmentDetails.this, MyReceiver.class);
                 eIntent.putExtra("key", "Your assessment [" + id + " " + aTitle + "] ends today.");
