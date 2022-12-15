@@ -135,8 +135,9 @@ public class TermAdd extends AppCompatActivity {
     public void saveTerm(View view){
         Date nStartDate = sCalendar.getTime();
         Date nEndDate = eCalendar.getTime();
+        title = termName.getText().toString();
 
-        if (!termName.getText().toString().equals("")) {
+        if (!title.equals("")) {
             Term nTerm = new Term(title, nStartDate, nEndDate);
             nTerm.setTermId(Integer.parseInt(id));
             repo.insertTerm(nTerm);
